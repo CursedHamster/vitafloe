@@ -6,17 +6,12 @@ const props = defineProps({
     type: String,
     default: "md",
   },
-  buttonStyle: { type: String, default: "dark" },
 });
 const emit = defineEmits(["click"]);
 const buttonSizes = ["sm", "md", "lg"];
-const buttonStyles = ["dark", "light"];
 const size = buttonSizes?.includes(props?.buttonSize)
   ? props?.buttonSize
   : "md";
-const style = buttonStyles?.includes(props?.buttonStyle)
-  ? props?.buttonStyle
-  : "dark";
 
 const tl = gsap.timeline();
 
@@ -32,8 +27,6 @@ function hoverButton(e: MouseEvent) {
     {
       y: 0,
       x: 0,
-      color: props?.buttonStyle === "dark" ? "white" : "black",
-      background: props?.buttonStyle === "dark" ? "black" : "white",
       yoyo: true,
       duration: 0.3,
     }
@@ -49,7 +42,6 @@ function leaveButton(e: MouseEvent) {
     target,
     {},
     {
-      color: props?.buttonStyle === "dark" ? "black" : "white",
       background: "none",
       duration: 0.2,
     }
@@ -64,7 +56,7 @@ function clickButton(e: MouseEvent) {
 <template>
   <button
     class="btn"
-    :class="[props?.buttonSize, props?.buttonStyle]"
+    :class="props?.buttonSize"
     @mouseover="hoverButton"
     @mouseleave="leaveButton"
     @click="clickButton"
@@ -85,13 +77,6 @@ function clickButton(e: MouseEvent) {
   color: vars.$text;
   font-size: 1em;
   font-weight: 600;
-  &.light {
-    color: vars.$background;
-    border: 2px solid vars.$background;
-  }
-  &.dark {
-    border: 2px solid vars.$text;
-  }
   &.lg {
     padding: vars.$padding-xxs vars.$padding-md;
     font-size: vars.$font-h2;

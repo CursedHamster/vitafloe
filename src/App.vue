@@ -2,7 +2,6 @@
 import { ref, watch, onMounted, onUnmounted } from "vue";
 import gsap from "gsap";
 import Flip from "gsap/Flip";
-import Lenis from "@studio-freight/lenis";
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 import Loading from "./components/Loading.vue";
@@ -43,20 +42,6 @@ function unlinkCursor() {
 
 onMounted(() => {
   gsap.registerPlugin(Flip);
-
-  // const lenis = new Lenis({
-  //   duration: 2,
-  //   smoothWheel: true,
-  //   smoothTouch: true,
-  //   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  // });
-
-  // function raf(time) {
-  //   lenis.raf(time);
-  //   requestAnimationFrame(raf);
-  // }
-
-  // requestAnimationFrame(raf);
 
   gsap.set(".cursor", { xPercent: -50, yPercent: -50 });
 

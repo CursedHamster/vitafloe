@@ -2,7 +2,6 @@
 import { onMounted, onUnmounted } from "vue";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { Flip } from "gsap/Flip";
 import data from "../assets/data";
 import MainCard from "./MainCard.vue";
 
