@@ -1,0 +1,11 @@
+Model Information:
+* title:	Pill (Capsule)
+* source:	https://sketchfab.com/3d-models/pill-capsule-93518f94ebd540c3b9da45ab67cf5590
+* author:	jaromir.ternavskiy (https://sketchfab.com/jaromir.ternavskiy)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Pill (Capsule)" (https://sketchfab.com/3d-models/pill-capsule-93518f94ebd540c3b9da45ab67cf5590) by jaromir.ternavskiy (https://sketchfab.com/jaromir.ternavskiy) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

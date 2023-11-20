@@ -1,0 +1,8 @@
+@import "./vars";
+
+:export {
+    background: $background;
+    primary: $primary;
+    borderWidth: $border-width;
+    borderRadiusLg: $border-radius-lg;
+}
