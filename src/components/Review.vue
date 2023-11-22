@@ -4,7 +4,7 @@ interface ReviewObjectInfo {
   jobTitle: string;
   description: string;
 }
-const props = defineProps<{ reviewInfo: ReviewObjectInfo }>();
+defineProps<{ reviewInfo: ReviewObjectInfo }>();
 </script>
 <template>
   <div class="review-container">

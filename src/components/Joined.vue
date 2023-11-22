@@ -253,7 +253,7 @@ onMounted(() => {
     .relative {
       padding: 0 vars.$padding-md;
       .joined-text {
-        padding: calc(vars.$padding-md * 2);
+        padding: calc(vars.$padding-md * 2) vars.$padding-md;
         border-radius: vars.$border-radius-md;
       }
     }

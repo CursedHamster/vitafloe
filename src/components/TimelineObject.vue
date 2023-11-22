@@ -5,7 +5,7 @@ interface TimelineObjectInfo {
   description: string;
   imgUrl: string;
 }
-const props = defineProps<{ objectInfo: TimelineObjectInfo }>();
+defineProps<{ objectInfo: TimelineObjectInfo }>();
 </script>
 <template>
   <div class="timeline-object">

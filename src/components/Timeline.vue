@@ -9,7 +9,7 @@ const timelineObjects = data?.timeline?.objects;
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger);
 
-  const objects = gsap.utils.toArray(".timeline-object");
+  const objects: gsap.DOMTarget[] = gsap.utils.toArray(".timeline-object");
   gsap.timeline({
     scrollTrigger: {
       trigger: ".line",
@@ -22,9 +22,10 @@ onMounted(() => {
     },
   });
 
-  objects?.forEach((object) => {
+  objects?.forEach((object: gsap.DOMTarget) => {
+    const objectSelector = gsap.utils.selector(object);
     gsap.fromTo(
-      object?.querySelector(".dot"),
+      objectSelector(".dot"),
       {},
       {
         scrollTrigger: {
@@ -42,7 +43,7 @@ onMounted(() => {
     );
 
     gsap.fromTo(
-      object?.querySelector(".timeline-image"),
+      objectSelector(".timeline-image"),
       { opacity: 0, scale: 0.8 },
       {
         scrollTrigger: {
@@ -66,7 +67,7 @@ onMounted(() => {
         },
       })
       .fromTo(
-        object?.querySelector(".active-line"),
+        objectSelector(".active-line"),
         { scaleY: 0 },
         {
           scaleY: 1,
@@ -80,8 +81,7 @@ onMounted(() => {
 <template>
   <section id="timeline" class="timeline-section">
     <h2 class="section-title">
-      
-<span class="extra">Journey</span> with Vitaem
+      <span class="extra">Journey</span> with Vitaem
     </h2>
     <div class="timeline-container">
       <div class="dot-character"><i class="lni lni-capsule"></i></div>
@@ -99,7 +99,7 @@ onMounted(() => {
   align-items: center;
   .section-title {
     text-align: center;
-    padding: 0 vars.$padding-md;
+    padding: 0 vars.$padding-sm;
     margin-bottom: vars.$padding-md;
   }
 }
@@ -152,6 +152,9 @@ onMounted(() => {
 @media screen and (min-width: vars.$breakpoint-sm) {
   .timeline-container {
     padding: 0 vars.$padding-md;
+    .section-title {
+      padding: 0;
+    }
   }
   .line {
     left: vars.$padding-md;

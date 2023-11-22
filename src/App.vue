@@ -54,7 +54,7 @@ onMounted(() => {
 
   window.addEventListener("mousemove", setXY);
   window.addEventListener("mouseover", (e) => {
-    const target = e?.target;
+    const target: any = e?.target;
     if (
       target?.id === "pill_canvas" &&
       cursorState.value !== cursorStates?.hidden

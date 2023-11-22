@@ -7,7 +7,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 
-const handRange = 50;
 let scene: any,
   camera: any,
   renderer: any,
@@ -65,27 +64,6 @@ function addHeroAnimation() {
     .fromTo("#pill_container", {}, { duration: 0.3, autoAlpha: 0 }, 0)
     .fromTo(object?.rotation, {}, { x: 2, y: 2, duration: 0.3 }, 0)
     .fromTo(object?.position, {}, { x: 5, duration: 0.3 }, 0);
-
-  gsap.fromTo(
-    ".hand-grab",
-    {},
-    {
-      motionPath: {
-        path: [
-          { x: 0, y: 0 },
-          { x: -0.8 * handRange, y: 0.2 * handRange },
-          { x: -1.8 * handRange, y: 1.2 * handRange },
-          { x: -2 * handRange, y: 2 * handRange },
-        ],
-        type: "cubic",
-      },
-      opacity: 0,
-      duration: 1,
-      repeat: 2,
-      repeatDelay: 0.2,
-      delay: 2,
-    }
-  );
 }
 
 onMounted(() => {
@@ -170,7 +148,6 @@ onUnmounted(() => {
         <i class="lni lni-arrow-down"></i
       ></RouterLink>
     </div>
-    <i class="hand-grab lni lni-hand"></i>
   </section>
 </template>
 <style scoped lang="scss">
@@ -192,15 +169,6 @@ onUnmounted(() => {
     margin-top: 5vh;
     font-size: vars.$font-h3;
     max-width: 100%;
-  }
-
-  .hand-grab {
-    position: absolute;
-    right: 0;
-    bottom: 50%;
-    font-size: vars.$font-ult;
-    opacity: 0.8;
-    z-index: 10;
   }
 }
 #pill_container {

@@ -4,7 +4,7 @@ interface MainCardInfo {
   description: string;
   imgUrl: string;
 }
-const props = defineProps<{ cardInfo: MainCardInfo }>();
+defineProps<{ cardInfo: MainCardInfo }>();
 </script>
 <template>
   <div class="main-card-container">

@@ -26,11 +26,9 @@ onMounted(() => {
       start: "top top",
       end: () => "+=" + mainCards?.length * windowHeight,
       scrub: 1,
-      // markers: true,
       pin: ".main-container",
       pinSpacer: ".main-pin-spacer",
       invalidateOnRefresh: true,
-      // snap: 1 / (mainCards.length - 1),
     },
   });
 
@@ -54,7 +52,6 @@ onMounted(() => {
         .timeline({
           scrollTrigger: {
             trigger: ".main-pin-spacer",
-            // start: () => "bottom start-=" + (i - 1) * windowHeight,
             start: () => "+=" + (i - 1) * windowHeight,
             end: () => "+=" + windowHeight,
             scrub: true,

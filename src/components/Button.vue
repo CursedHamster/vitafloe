@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import gsap from "gsap";
+import vars from "../_vars.module.scss";
 
 const props = defineProps({
   buttonSize: {
@@ -27,6 +28,8 @@ function hoverButton(e: MouseEvent) {
     {
       y: 0,
       x: 0,
+      color: vars?.background,
+      background: vars?.text,
       yoyo: true,
       duration: 0.3,
     }
@@ -42,6 +45,7 @@ function leaveButton(e: MouseEvent) {
     target,
     {},
     {
+      color: vars?.text,
       background: "none",
       duration: 0.2,
     }
@@ -56,7 +60,7 @@ function clickButton(e: MouseEvent) {
 <template>
   <button
     class="btn"
-    :class="props?.buttonSize"
+    :class="size"
     @mouseover="hoverButton"
     @mouseleave="leaveButton"
     @click="clickButton"
@@ -72,7 +76,7 @@ function clickButton(e: MouseEvent) {
   padding: vars.$padding-xxs vars.$padding-xs;
   cursor: none;
   border-radius: vars.$border-radius-lg;
-  border: none;
+  border: 2px solid vars.$text;
   background: none;
   color: vars.$text;
   font-size: 1em;
@@ -92,9 +96,9 @@ function clickButton(e: MouseEvent) {
 @media screen and (min-width: vars.$breakpoint-md) {
   .btn {
     &.lg {
-    padding: vars.$padding-xxs vars.$padding-md;
-    font-size: vars.$font-h1;
-  }
+      padding: vars.$padding-xxs vars.$padding-md;
+      font-size: vars.$font-h1;
+    }
   }
 }
 </style>

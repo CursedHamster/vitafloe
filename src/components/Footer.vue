@@ -78,7 +78,7 @@ const socials = data?.socials;
     gap: vars.$gap-md;
     align-items: center;
     padding: vars.$padding-sm vars.$padding-xs;
-    font-size: vars.$font-h0;
+    font-size: vars.$font-h1;
     .social {
       color: vars.$background;
       line-height: 1;
