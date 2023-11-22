@@ -32,13 +32,13 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior(to, from) {
     if (to.path === from.path && to.hash) {
       lenis.scrollTo(to?.hash, {
-        offset: to?.hash === "advert" || "timeline" ? -200 : 0 ,
+        offset: to?.hash === "advert" || "timeline" ? -200 : 0,
         duration: 5,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        immediate: false
+        immediate: false,
       });
     }
   },
@@ -49,7 +49,7 @@ router.beforeEach((to, from, next) => {
   }
   next();
 });
-router.afterEach((to, from, next) => {
+router.afterEach(() => {
   setTimeout(() => {
     setLoading(false);
   }, 2000);
