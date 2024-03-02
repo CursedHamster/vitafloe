@@ -29,15 +29,27 @@ body {
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
+  cursor: none !important;
 }
 
 button {
+  cursor: none;
+  border: 0;
+  outline: 0;
   font-family: Quicksand;
+  font-size: inherit;
+  * {
+    pointer-events: none;
+  }
 }
 
 a {
+  cursor: none;
   color: vars.$text;
   text-decoration: none;
+  * {
+    pointer-events: none;
+  }
 }
 
 ul {
@@ -53,16 +65,17 @@ input {
   color: vars.$text;
   width: 100%;
   max-width: 100%;
-  padding: vars.$padding-xxs vars.$padding-xs;
+  padding: vars.$padding-xxs vars.$padding-sm;
   background: none;
-  border: 2px solid vars.$border-color;
-  border-radius: vars.$border-radius-sm;
+  border: vars.$border-width solid vars.$text;
+  border-radius: vars.$border-radius-md;
   line-height: 1;
+  font-family: inherit;
   font-size: 1em;
-  -webkit-border-radius: vars.$border-radius-sm;
-  -moz-border-radius: vars.$border-radius-sm;
-  -ms-border-radius: vars.$border-radius-sm;
-  -o-border-radius: vars.$border-radius-sm;
+  -webkit-border-radius: vars.$border-radius-md;
+  -moz-border-radius: vars.$border-radius-md;
+  -ms-border-radius: vars.$border-radius-md;
+  -o-border-radius: vars.$border-radius-md;
   transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
@@ -73,7 +86,6 @@ input {
   }
   &:focus,
   &:active {
-    border: 2px solid vars.$primary;
     outline: none;
   }
 }
@@ -81,6 +93,7 @@ input {
 input[type="checkbox"] {
   display: none;
   & + label {
+    cursor: none;
     display: block;
     position: relative;
     width: vars.$checkbox-width;
@@ -90,16 +103,12 @@ input[type="checkbox"] {
     -moz-border-radius: vars.$border-radius-md;
     -ms-border-radius: vars.$border-radius-md;
     -o-border-radius: vars.$border-radius-md;
-    background: vars.$border-color;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-transition: background 0.1s ease-in-out;
-    transition: background 0.1s ease-in-out;
-    -moz-transition: background 0.1s ease-in-out;
-    -ms-transition: background 0.1s ease-in-out;
-    -o-transition: background 0.1s ease-in-out;
+    background: vars.$text;
+    transition: all 0.5 ease-in-out;
+    -webkit-transition: all 0.5 ease-in-out;
+    -moz-transition: all 0.5 ease-in-out;
+    -ms-transition: all 0.5 ease-in-out;
+    -o-transition: all 0.5 ease-in-out;
     &:before {
       content: "";
       display: block;
@@ -107,6 +116,7 @@ input[type="checkbox"] {
       height: vars.$checkbox-dot-size;
       border-radius: vars.$border-radius-md;
       background: vars.$background;
+      box-shadow: vars.$gradient-shadow;
       position: absolute;
       left: vars.$checkbox-offset;
       top: vars.$checkbox-offset;
@@ -119,11 +129,9 @@ input[type="checkbox"] {
     }
   }
   &:checked + label {
-    background: vars.$primary;
+    background: vars.$gradient-3;
     &:before {
-      left: calc(
-        vars.$checkbox-width - vars.$checkbox-dot-size - vars.$checkbox-offset
-      );
+      left: calc(vars.$checkbox-width - vars.$checkbox-dot-size - vars.$checkbox-offset);
     }
   }
 }
@@ -139,43 +147,9 @@ input[type="checkbox"] {
     left: 0;
     right: 0;
     bottom: 0;
-    width: 100%;
+    width: 100% !important;
     height: 100%;
     object-fit: contain;
-  }
-}
-
-.ball {
-  position: fixed;
-  width: 30vw;
-  aspect-ratio: 1/1;
-  //background: rgb(vars.$accent, 0.3);
-  background: vars.$gradient-4;
-  box-shadow: inset -1rem 1rem 2rem vars.$accent;
-  top: 0;
-  left: 0;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
-  opacity: 0.15;
-  filter: blur(5px);
-  -webkit-filter: blur(5px);
-  z-index: -2;
-  &.big {
-    width: 35vw;
-  }
-}
-.ball-container {
-  position: relative;
-  width: 30vw;
-  aspect-ratio: 1/1;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  &.big {
-    width: 35vw;
   }
 }
 
@@ -184,30 +158,28 @@ input[type="checkbox"] {
 }
 
 .section-title {
-  font-size: vars.$font-h0;
+  font-size: vars.$font-h2;
   text-transform: capitalize;
-  margin-bottom: vars.$padding-sm;
-  line-height: 1.1;
-  .extra {
-    position: relative;
-    display: inline-block;
-    &::before {
-      content: "";
-      width: 100%;
-      height: 1rem;
-      background: vars.$gradient-3;
-      border-radius: vars.$border-radius-xs;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      opacity: 0.3;
-      z-index: -1;
-      -webkit-border-radius: vars.$border-radius-xs;
-      -moz-border-radius: vars.$border-radius-xs;
-      -ms-border-radius: vars.$border-radius-xs;
-      -o-border-radius: vars.$border-radius-xs;
-    }
+  margin-bottom: vars.$padding-md;
+  line-height: 1;
+  font-weight: 400;
+}
+
+.text .extra,
+.section-title .extra {
+  position: relative;
+  display: inline-block;
+  &::before {
+    content: "";
+    width: 100%;
+    height: 40%;
+    background: vars.$gradient-3;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.5;
+    z-index: -1;
   }
 }
 
@@ -228,14 +200,34 @@ input[type="checkbox"] {
   }
 }
 
+@media screen and (max-width: vars.$breakpoint-md) {
+  body {
+    cursor: unset !important;
+  }
+  button {
+    cursor: pointer;
+  }
+  a {
+    cursor: pointer;
+  }
+  input[type="checkbox"] {
+    & + label {
+      cursor: pointer;
+    }
+  }
+}
+
 @media screen and (max-width: vars.$breakpoint-sm) {
   body {
-    font-size: 0.8em;
+    font-size: vars.$font-xs;
+  }
+  input {
+    padding: vars.$padding-xxs vars.$padding-xs;
   }
 }
 
 @media screen and (max-height: vars.$breakpoint-w-md) {
   body {
-    font-size: 0.8em;
+    font-size: vars.$font-xs;
   }
 }

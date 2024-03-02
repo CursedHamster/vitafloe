@@ -3,10 +3,8 @@ import { reactive, onMounted, onUnmounted, watch } from "vue";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { Flip } from "gsap/Flip";
-import data from "../assets/data";
 import Button from "./Button.vue";
 import Joined from "./Joined.vue";
-const qualities = data?.join?.qualities;
 const state = reactive({
   formData: {
     email: "",
@@ -45,7 +43,6 @@ function submitForm() {
 }
 function flipPhone() {
   return Flip.fit(".phone", ".phone-image-container", {
-    // scale: true,
     simple: true,
     duration: 2,
     ease: "power1.inOut",
@@ -64,31 +61,26 @@ onMounted(() => {
   phoneTimeline = gsap.timeline({
     scrollTrigger: {
       trigger: "#join",
-      start: "20% bottom",
-      end: "70% bottom",
+      start: "50% bottom",
+      end: "100% bottom",
       scrub: 1,
     },
   });
   const flip: any = flipPhone();
   phoneTimeline?.add(flip);
 
-  var movingText: any = document.querySelector(".moving-text")?.cloneNode(true);
-  document.querySelector(".moving-text-container")?.appendChild(movingText);
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: ".footer",
+        start: () => "0% bottom",
+        end: "bottom bottom",
+        toggleActions: "play none none reverse",
+        invalidateOnRefresh: true,
+      },
+    })
+    .fromTo(".header", { opacity: 1 }, { opacity: 0, duration: 0.2 });
 
-  const movingTextTimeline = gsap.timeline({
-    scrollTrigger: {
-      trigger: "#join",
-      start: "top center",
-      end: "center top",
-      toggleActions: "play pause resume pause",
-      invalidateOnRefresh: true,
-    },
-  });
-  movingTextTimeline?.fromTo(
-    ".moving-text",
-    {},
-    { x: -movingText?.offsetWidth, ease: "none", repeat: -1, duration: 20 }
-  );
   window.addEventListener("resize", updateFlip);
 });
 
@@ -96,32 +88,27 @@ onUnmounted(() => window.removeEventListener("resize", updateFlip));
 </script>
 <template>
   <section id="join">
-    <div class="moving-text-container">
-      <div class="moving-text">
-        <p class="quality" v-for="quality in qualities">
-          <i class="lni" :class="[quality?.icon]"></i>
-          {{ quality?.text }}
-        </p>
-      </div>
-    </div>
     <div class="join-container">
       <div class="phone-image-container"></div>
       <div class="text-container">
         <h2 class="section-title"><span class="extra">Join us</span></h2>
         <form @submit.prevent="submitForm">
           <div class="inputs">
-            <div class="email-group" :class="{ invalid: state?.invalidEmail }">
-              <input
-                v-model.trim="state.formData.email"
-                id="email"
-                name="email"
-                type="text"
-                placeholder="Email"
-              />
-              <div class="email-tooltip">
-                <div class="icon">!</div>
-                <p>Invalid email</p>
+            <div class="form-group" :class="{ invalid: state?.invalidEmail }">
+              <div class="email-group">
+                <input
+                  v-model.trim="state.formData.email"
+                  id="email"
+                  name="email"
+                  type="text"
+                  placeholder="Enter your email..."
+                />
+                <div class="email-tooltip">
+                  <div class="icon">!</div>
+                  <p>Invalid email</p>
+                </div>
               </div>
+              <Button button-style="static">Send</Button>
             </div>
             <div class="checkbox-group">
               <input
@@ -130,7 +117,7 @@ onUnmounted(() => window.removeEventListener("resize", updateFlip));
                 name="consent"
                 type="checkbox"
               />
-              <label for="consent"></label>
+              <label class="clickable" for="consent"></label>
               <p>
                 subscribe to receiving exclusive updates and offers from the
                 newsletter
@@ -138,7 +125,6 @@ onUnmounted(() => window.removeEventListener("resize", updateFlip));
             </div>
           </div>
 
-          <Button>Send</Button>
           <p class="extra">
             * By subscribing, you agree to receive occasional promotional emails
             from Vitaem, including updates on new product launches, exclusive
@@ -159,56 +145,29 @@ onUnmounted(() => window.removeEventListener("resize", updateFlip));
 </template>
 <style lang="scss" scoped>
 @use "../vars";
-.moving-text-container {
-  width: 100%;
-  background: vars.$gradient-3;
-  color: white;
-  overflow-x: hidden;
-  display: flex;
-  flex-wrap: nowrap;
-  .moving-text {
-    padding: vars.$padding-xs vars.$padding-sm;
-    display: flex;
-    align-items: center;
-    gap: vars.$gap-lg;
-    flex-wrap: nowrap;
-    width: fit-content;
-    .quality {
-      font-size: vars.$font-h1;
-      text-transform: uppercase;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      text-align: center;
-      gap: vars.$gap-md;
-      flex-wrap: nowrap;
-      text-wrap: nowrap;
-      white-space: nowrap;
-    }
-  }
-}
 .join-container {
   display: flex;
-  flex-direction: column-reverse;
-  flex-wrap: wrap;
   width: 100%;
   padding: vars.$padding-md 0;
   .phone-image-container {
     position: relative;
-    width: 100%;
-    height: 50vh;
+    flex-basis: 50%;
+    max-width: 50vw;
+    height: 70vh;
   }
   .text-container {
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: vars.$padding-sm;
+    flex-basis: 50%;
+    padding: vars.$padding-lg;
+    padding-left: vars.$padding-md;
     .section-title {
       text-align: center;
     }
     form {
       width: 100%;
-      padding: vars.$padding-sm 0;
+      padding-bottom: vars.$padding-sm;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -218,24 +177,50 @@ onUnmounted(() => window.removeEventListener("resize", updateFlip));
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: vars.$gap-md;
+        gap: vars.$gap-lg;
+      }
+      .form-group {
+        position: relative;
+        display: flex;
+        width: 100%;
+        input {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          border-right: none;
+        }
+        .btn {
+          max-width: fit-content;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+        &.invalid {
+          input {
+            border-color: vars.$red;
+          }
+          .email-tooltip {
+            transform: translateY(0);
+            opacity: 1;
+          }
+          .btn {
+            border-color: vars.$red;
+            &:hover {
+              background: vars.$red;
+            }
+          }
+        }
       }
       .email-group {
-        display: flex;
-        flex-direction: column;
-        gap: vars.$gap-xs;
-        position: relative;
+        flex: 1;
         input {
           transition: all 0.1s ease-in-out;
         }
-
         .email-tooltip {
           position: absolute;
-          bottom: calc(100% + (vars.$checkbox-height / 3));
-          right: 0;
-          background: vars.$secondary;
-          border-radius: vars.$border-radius-sm;
-          padding: vars.$padding-xxs vars.$padding-xs;
+          bottom: calc(100% + vars.$gap-sm);
+          left: 0;
+          background: vars.$red;
+          border-radius: vars.$border-radius-md;
+          padding: vars.$padding-xxs vars.$padding-sm;
           display: flex;
           gap: vars.$gap-sm;
           font-size: vars.$font-xs;
@@ -246,15 +231,15 @@ onUnmounted(() => window.removeEventListener("resize", updateFlip));
             content: "";
             position: absolute;
             top: 100%;
-            right: 1rem;
-            margin-left: calc(vars.$checkbox-height / -3);
-            border-width: calc(vars.$checkbox-height / 3);
+            left: 2rem;
+            margin-left: calc(vars.$checkbox-height / -4);
+            border-width: calc(vars.$checkbox-height / 4);
             border-style: solid;
-            border-color: vars.$secondary transparent transparent transparent;
+            border-color: vars.$red transparent transparent transparent;
           }
           .icon {
-            background: vars.$red;
-            color: vars.$secondary;
+            background: vars.$background;
+            color: vars.$red;
             border-radius: 50%;
             aspect-ratio: 1/1;
             display: flex;
@@ -264,18 +249,8 @@ onUnmounted(() => window.removeEventListener("resize", updateFlip));
             font-weight: bold;
           }
           p {
-            color: vars.$text;
+            color: vars.$background;
             font-weight: 500;
-          }
-        }
-
-        &.invalid {
-          input {
-            border-color: vars.$red;
-          }
-          .email-tooltip {
-            transform: translateY(0);
-            opacity: 1;
           }
         }
       }
@@ -289,11 +264,7 @@ onUnmounted(() => window.removeEventListener("resize", updateFlip));
           display: inline;
         }
       }
-      button {
-        width: 100%;
-      }
       .extra {
-        margin-top: vars.$padding-sm;
         font-size: vars.$font-xs;
         color: vars.$text-light;
       }
@@ -301,25 +272,34 @@ onUnmounted(() => window.removeEventListener("resize", updateFlip));
   }
 }
 
-@media screen and (min-width: vars.$breakpoint-sm) {
+@media screen and (max-width: vars.$breakpoint-md) {
   .join-container {
-    flex-direction: row;
-    padding: 5rem vars.$padding-md;
+    flex-direction: column-reverse;
     .phone-image-container {
-      flex-basis: 50%;
-      max-width: 50vw;
-      height: 70vh;
+      flex-basis: unset;
+      width: 100%;
+      height: 60vh;
     }
     .text-container {
-      flex-basis: 50%;
-      padding-right: 0;
+      flex-basis: unset;
+      padding: vars.$padding-md;
+    }
+    form {
+      .email-group {
+        .email-tooltip {
+          padding: vars.$padding-xxs vars.$padding-xs;
+        }
+      }
     }
   }
 }
 
-@media screen and (min-width: vars.$breakpoint-md) {
+@media screen and (max-width: vars.$breakpoint-sm) {
   .join-container {
-    padding: 5rem vars.$padding-lg;
+    padding: vars.$padding-md 0;
+    .text-container {
+      padding: vars.$padding-sm vars.$padding-sm;
+    }
   }
 }
 </style>

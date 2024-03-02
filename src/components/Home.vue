@@ -20,8 +20,6 @@ import Join from './Join.vue';
     <Advert />
     <Join />
   </div>
-  <div class="ball ball--1 big"></div>
-  <div class="ball ball--2"></div>
 </template>
 
 <style lang="scss" scoped>
@@ -31,18 +29,6 @@ import Join from './Join.vue';
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  padding: 3rem 0;
-}
-
-.ball {
-  &--1 {
-    top: -3rem;
-    left: 30%;
-  }
-  &--2 {
-    top: 40vh;
-    left: -2rem;
-    transform: rotate(-90deg);
-  }
+  padding: vars.$padding-md 0;
 }
 </style>

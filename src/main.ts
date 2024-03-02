@@ -9,7 +9,7 @@ import { setLoading } from "./loadingState";
 const app = createApp(App);
 
 const lenis = new Lenis({
-  duration: 2,
+  duration: 5,
   smoothWheel: true,
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
 });
@@ -35,7 +35,7 @@ const router = createRouter({
   scrollBehavior(to, from) {
     if (to.path === from.path && to.hash) {
       lenis.scrollTo(to?.hash, {
-        offset: to?.hash === "advert" || "timeline" ? -200 : 0,
+        offset: to?.hash === "advert" || "timeline" ? -150 : 0,
         duration: 5,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         immediate: false,

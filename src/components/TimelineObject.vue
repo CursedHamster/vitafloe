@@ -28,107 +28,107 @@ defineProps<{ objectInfo: TimelineObjectInfo }>();
 .timeline-object {
   position: relative;
   display: flex;
-  flex-direction: column-reverse;
-  padding: vars.$padding-xs 0 vars.$padding-md;
-  padding-left: vars.$padding-sm;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 vars.$padding-md;
   gap: vars.$gap-lg;
   width: 100%;
   .active-line {
-    width: vars.$active-line-width;
+    width: vars.$line-width;
     height: 100%;
     position: absolute;
     top: vars.$padding-xxs;
     left: 0;
     right: 0;
-    background: vars.$gradient-1;
-  }
-  &:nth-of-type(even) .active-line {
-    background: vars.$gradient-2;
+    margin: 0 auto;
+    background: vars.$primary;
+    border-radius: vars.$line-width;
   }
   .dot-container {
-    width: fit-content;
-    height: fit-content;
-    position: absolute;
-    top: 0;
-    left: calc(vars.$dot-size / -2 + vars.$line-width / 2);
-    right: 0;
-    padding: vars.$padding-xs 0;
-    background: vars.$background;
-  }
-  .dot {
     width: vars.$dot-size;
     height: vars.$dot-size;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    background: vars.$background;
     border-radius: 50%;
-    outline: vars.$border-width solid vars.$secondary;
+    padding: 0.1rem;
+    border: vars.$border-width solid vars.$secondary;
+  }
+  .dot {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    background: vars.$primary;
+    scale: 0;
   }
   .timeline-image {
+    position: relative;
     width: 100%;
-    height: 50vh;
-    // border: vars.$border-width solid vars.$black;
-    // box-shadow: 5px 5px 0 rgb(171, 220, 255);
-    opacity: 0;
-    scale: 0.8;
+    height: 70vh;
+    flex-basis: 45%;
+    scale: 1;
+    overflow: hidden;
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: vars.$border-radius-sm;
     }
   }
   .timeline-text {
+    flex-basis: 45%;
+    opacity: 0.5;
+    transition: all 0.2s ease-in-out;
     h3 {
-      margin: vars.$padding-sm 0 vars.$padding-xxs;
-      font-size: vars.$font-h2;
-      line-height: 1;
-    }
-    h4 {
       font-size: vars.$font-h3;
       line-height: 1;
-      opacity: 0.8;
-      font-weight: 600;
-      background: rgb(vars.$primary, 0.1);
-      width: fit-content;
-      padding: vars.$padding-xxxs vars.$padding-xxs;
-      border-radius: vars.$border-radius-sm;
+      font-weight: 400;
+    }
+    h4 {
+      position: absolute;
+      top: 0;
+      right: 0;
+      line-height: 1;
+      font-size: 6rem;
+      font-weight: 400;
+      background: vars.$gradient-1;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0.2;
+      pointer-events: none;
+      z-index: -1;
     }
     p {
-      font-size: vars.$font-h4;
+      font-size: vars.$font-sm;
+      margin-top: vars.$padding-xs;
     }
   }
 
   &.active .timeline-text {
-    h3,
-    h4 {
-      color: vars.$primary;
-    }
+    opacity: 1;
   }
 }
 
-@media screen and (min-width: vars.$breakpoint-md) {
+@media screen and (max-width: vars.$breakpoint-md) {
   .timeline-object {
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: flex-start;
-    padding-left: 0;
-    // gap: 10rem;
-    // &:nth-of-type(even) {
-    //   flex-direction: row-reverse;
-    // }
+    justify-content: unset;
+    flex-direction: column-reverse;
+    align-items: unset;
+    padding-left: vars.$padding-sm;
     .active-line {
-      margin: 0 auto;
+      margin: 0;
     }
     .dot-container {
-      left: 0;
-      margin: 0 auto;
-      padding: vars.$padding-xs 0;
+      left: calc(vars.$dot-size / -2 + vars.$line-width / 2);
+      margin: 0;
     }
     .timeline-image {
-      height: 40vh;
-      flex-basis: 45%;
-      scale: 1;
+      flex-basis: unset;
     }
     .timeline-text {
-      flex-basis: 45%;
+      flex-basis: unset;
     }
   }
 }

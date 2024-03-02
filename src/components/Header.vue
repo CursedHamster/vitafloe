@@ -1,136 +1,134 @@
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted, watch } from "vue";
 import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import Button from "./Button.vue";
 import data from "../assets/data";
+import vars from "../_vars.module.scss";
 
 const sections = data?.sections;
-const socials = data?.socials;
-const openMenu: any = ref(false);
-var menuToggle: gsap.core.Timeline;
+const openMenu = ref(false);
+const menuBurger = ref(isMenuBurger());
+var menuToggle = gsap.timeline({ paused: true, reversed: true });
 var iconWidth: number;
 const html: HTMLHtmlElement | null = document.querySelector("html");
 
-function updateWidth() {
-  const iconMenu = document.querySelector(".icon-menu")?.clientWidth;
-  iconWidth = iconMenu ? iconMenu : 0;
+function isMenuBurger() {
+  return window.innerWidth <= parseFloat(vars.breakpointMd);
 }
+
+function updateWidth() {
+  const iconMenu = document.querySelector(".icon-menu")?.clientHeight;
+  iconWidth = iconMenu ? iconMenu : 0;
+  menuBurger.value = isMenuBurger();
+}
+
+watch(menuBurger, (val) => {
+  if (val && menuToggle.getChildren()?.length === 0) {
+    addMenuToggleAnimation();
+  } else if (!val && menuToggle.getChildren()?.length !== 0) {
+    menuToggle.clear();
+    gsap.set(".header-background, .nav, .nav-link, .join-button, .top, .bot", {
+      clearProps: "all",
+    });
+    openMenu.value = false;
+  }
+});
 
 watch(openMenu, (val) => {
   if (html) {
     html.style.overflowY = val ? "hidden" : "auto";
   }
-  menuToggle?.reversed() ? menuToggle?.restart() : menuToggle?.reverse();
+  if (menuBurger.value) {
+    menuToggle?.reversed() ? menuToggle?.restart() : menuToggle?.reverse();
+  }
 });
 
-onMounted(() => {
-  updateWidth();
-  menuToggle = gsap.timeline({ paused: true, reversed: true });
+function addMenuToggleAnimation() {
   menuToggle
-    .fromTo(".header", {}, { height: "100vh", duration: 0.5 }, 0)
-    .fromTo(
-      ".nav",
-      { height: 0, opacity: 0 },
-      { height: "100%", opacity: 1, duration: 0.5 },
-      0
-    )
-    .fromTo(
-      ".top",
-      {},
-      { y: (iconWidth - iconWidth / 3.5) / 2, duration: 0.5 },
-      0
-    )
-    .fromTo(
-      ".bot",
-      {},
-      { y: (iconWidth - iconWidth / 3.5) / -2, duration: 0.5 },
-      0
-    )
-    .fromTo(
-      ".mid",
-      {},
-      { scale: 0, transformOrigin: "center", duration: 0.5 },
-      0
-    )
+    .fromTo(".header-background", {}, { top: 0, duration: 0.5 }, 0)
     .fromTo(
       ".top",
       {},
       {
-        rotationZ: 45,
-        transformOrigin: "center",
-        duration: 0.5,
-      },
-      0
-    )
-    .fromTo(
-      ".bot",
-      {},
-      {
+        y: iconWidth / -30,
         rotationZ: -45,
-        transformOrigin: "center",
+        transformOrigin: "right",
         duration: 0.5,
       },
       0
+    )
+    .fromTo(
+      ".bot",
+      {},
+      {
+        y: iconWidth / 30,
+        rotationZ: 45,
+        transformOrigin: "right",
+        duration: 0.5,
+      },
+      0
+    )
+    .fromTo(".nav", {}, { display: "flex" }, 0)
+    .fromTo(
+      ".nav-link",
+      { y: -50, autoAlpha: 0 },
+      { y: 0, autoAlpha: 1, duration: 0.2, stagger: 0.2 },
+      0
+    )
+    .fromTo(
+      ".join-button",
+      { x: -20, autoAlpha: 0 },
+      { x: 0, autoAlpha: 1, duration: 0.2 },
+      ">"
     );
+}
 
+onMounted(() => {
+  gsap.registerPlugin(ScrollTrigger);
+  updateWidth();
+  if (menuBurger?.value) {
+    addMenuToggleAnimation();
+  }
   window.addEventListener("resize", updateWidth);
 });
 
 onUnmounted(() => window.removeEventListener("resize", updateWidth));
 </script>
 <template>
-  <header class="header">
+  <header class="header" :class="{ 'full-size': !menuBurger }">
     <div class="menu">
-      <RouterLink to="/#home" class="logo">vitaem.</RouterLink>
-      <button class="icon" @click="openMenu = !openMenu">
-        <!-- <i class="lni lni-menu"></i> -->
+      <RouterLink to="/#home" class="logo">vitaem</RouterLink>
+      <button class="btn-icon clickable" @click="openMenu = !openMenu">
         <svg
-          class="icon-menu"
-          version="1.1"
-          id="lni_lni-menu"
           xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          x="0px"
-          y="0px"
-          viewBox="0 0 64 64"
-          style="enable-background: new 0 0 64 64"
-          xml:space="preserve"
+          class="icon icon-tabler icon-tabler-menu icon-menu"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
         >
-          <g>
-            <path
-              class="top"
-              d="M4,17.2h56c1.2,0,2.3-1,2.3-2.3s-1-2.3-2.3-2.3H4c-1.2,0-2.3,1-2.3,2.3S2.8,17.2,4,17.2z"
-            />
-            <path
-              class="mid"
-              d="M60,29.8H4c-1.2,0-2.3,1-2.3,2.3c0,1.2,1,2.3,2.3,2.3h56c1.2,0,2.3-1,2.3-2.3C62.3,30.8,61.2,29.8,60,29.8z"
-            />
-            <path
-              class="bot"
-              d="M60,46.8H4c-1.2,0-2.3,1-2.3,2.3s1,2.3,2.3,2.3h56c1.2,0,2.3-1,2.3-2.3S61.2,46.8,60,46.8z"
-            />
-          </g>
+          <path class="top" d="M4 8l16 0" />
+          <path class="bot" d="M4 16l16 0" />
         </svg>
       </button>
     </div>
     <nav class="nav">
-      <div class="sections">
-        <RouterLink
-          v-for="section in sections"
-          :to="'#' + section?.id"
-          @click="openMenu = false"
-          >{{ section?.title }}</RouterLink
-        >
-      </div>
-      <div class="socials">
-        <a v-for="social in socials" :href="social?.url"
-          ><i
-            class="lni"
-            :class="[social?.icon]"
-            :aria-label="social?.title"
-          ></i
-        ></a>
-      </div>
+      <RouterLink
+        class="nav-link"
+        v-for="section in sections"
+        :to="'#' + section?.id"
+        @click="openMenu = false"
+        ><p>{{ section?.title }}</p>
+        <i class="ti ti-arrow-right"></i
+      ></RouterLink>
+      <Button class="join-button" @click="$router.push('#join')">Join</Button>
     </nav>
+    <div class="header-background"></div>
   </header>
 </template>
 <style lang="scss" scoped>
@@ -140,27 +138,30 @@ onUnmounted(() => window.removeEventListener("resize", updateWidth));
   top: 0;
   left: 0;
   right: 0;
-  width: 100%;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  padding: vars.$padding-xs vars.$padding-lg;
   background: vars.$background;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
-  border-bottom: 1px solid vars.$secondary;
   z-index: 1000;
   .menu {
-    width: 100%;
-    padding: vars.$padding-xs vars.$padding-sm;
     display: flex;
     justify-content: space-between;
     align-items: center;
     .logo {
-      font-size: vars.$font-h1;
-      font-weight: 500;
+      font-size: vars.$font-h2;
+      font-weight: 400;
+      background: vars.$gradient-3;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .icon {
+    .btn-icon {
+      display: none;
       line-height: 1;
       background: none;
       border: none;
       color: vars.$text;
-      cursor: pointer;
+      padding: 0;
       svg {
         width: 2rem;
         height: 2rem;
@@ -168,56 +169,84 @@ onUnmounted(() => window.removeEventListener("resize", updateWidth));
       }
     }
   }
-  nav {
+  .nav {
     display: flex;
-    flex-direction: column;
-    width: 100%;
-    font-size: vars.$font-h2;
-    height: 0;
-    overflow-y: hidden;
-    gap: vars.$gap-md * 1.5;
-    .sections {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      align-items: center;
-      gap: vars.$gap-md;
-      text-transform: capitalize;
-      overflow-y: hidden;
-    }
-    .socials {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      font-size: vars.$font-h1;
-      gap: vars.$gap-md;
+    flex-direction: row;
+    align-items: center;
+    gap: vars.$gap-lg;
+    text-transform: capitalize;
+    font-size: vars.$font-sm;
+    z-index: 0;
+    &-link {
       i {
-        pointer-events: none;
-        line-height: 1;
+        display: none;
       }
     }
   }
+  .header-background {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: -100vh;
+    left: 0;
+    right: 0;
+    background: vars.$background;
+    z-index: -1;
+  }
 }
 
-@media screen and (min-width: vars.$breakpoint-sm) {
+@media screen and (max-width: vars.$breakpoint-md) {
   .header {
+    padding: 0;
+    justify-items: flex-start;
+    flex-direction: column;
+    background: none;
+    border: none;
+    max-height: 100vh;
+    overflow-y: auto;
     .menu {
+      width: 100%;
+      background: vars.$background;
       padding: vars.$padding-xs vars.$padding-md;
-      .icon {
-        svg {
-          width: 2.5rem;
-          height: 2.5rem;
+      .btn-icon {
+        display: block;
+      }
+    }
+    .nav {
+      display: none;
+      font-size: vars.$font-h4;
+      flex-direction: column;
+      margin: vars.$padding-sm 0;
+      padding: vars.$padding-xs vars.$padding-md;
+      &-link {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: vars.$padding-xs;
+        border-bottom: vars.$border-width solid vars.$text;
+        i {
+          display: block;
         }
       }
     }
+    .header-background {
+      display: block;
+    }
   }
 }
 
-@media screen and (min-width: vars.$breakpoint-md) {
+@media screen and (max-width: vars.$breakpoint-sm) {
   .header {
     .menu {
-      padding: vars.$padding-xs vars.$padding-lg;
+      padding: vars.$padding-xs vars.$padding-sm;
+      .logo {
+        font-size: vars.$font-h3;
+      }
+    }
+    .nav {
+      padding: vars.$padding-xs vars.$padding-sm;
     }
   }
 }

@@ -5,7 +5,9 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+import vars from "../_vars.module.scss";
+
+let mm = gsap.matchMedia();
 
 let scene: any,
   camera: any,
@@ -27,47 +29,102 @@ function updateObject() {
 }
 
 function addHeroAnimation() {
-  gsap.fromTo(
-    ".header",
-    { autoAlpha: 0 },
-    {
-      scrollTrigger: {
-        trigger: "body",
-        start: () => "+=" + window.innerHeight,
-        toggleActions: "play none none reverse",
-      },
-      autoAlpha: 1,
-      duration: 0.2,
+  mm.add(
+    { isDesktop: `(min-width: ${vars?.breakpointMd})` },
+    ({ conditions }) => {
+      const isDesktop: any = conditions?.isDesktop;
+      const heroHeaderAnimation = gsap.timeline({
+        scrollTrigger: {
+          id: "hero_header",
+          trigger: "body",
+          start: () => window.innerHeight,
+          end: () => "+=" + window.innerHeight,
+          toggleActions: "play none none reverse",
+          invalidateOnRefresh: true,
+        },
+      });
+      heroHeaderAnimation
+        .fromTo(
+          ".header .nav",
+          { yPercent: isDesktop ? -100 : 0, autoAlpha: isDesktop ? 0 : 1 },
+          { yPercent: 0, autoAlpha: 1, duration: isDesktop ? 0.3 : 0 },
+          0
+        )
+        .fromTo(
+          ".header",
+          { background: "transparent" },
+          {
+            background: isDesktop ? vars?.background : "transparent",
+            duration: isDesktop ? 0.2 : 0,
+          }
+        );
     }
   );
+
   gsap
     .timeline({
       scrollTrigger: {
         trigger: ".hero-container",
         start: "5% start",
-        end: "center start",
+        end: "bottom start",
         scrub: 1,
       },
     })
     .fromTo(
-      ".hero-text-animation",
+      ".hero-text-animation .extra",
       {},
       {
-        scale: 4,
-        translateX: "-200%",
-        translateY: "100vh",
-        opacity: 0,
+        y: -20,
+        rotateZ: -5,
         duration: 0.2,
-        stagger: 0.1,
+        stagger: 0.05,
       }
     )
-    .fromTo("#pill_container", {}, { duration: 0.3, autoAlpha: 0 }, 0)
-    .fromTo(object?.rotation, {}, { x: 2, y: 2, duration: 0.3 }, 0)
-    .fromTo(object?.position, {}, { x: 5, duration: 0.3 }, 0);
+    .fromTo("#pill_container", {}, { autoAlpha: 0.2 }, 0)
+    .fromTo(camera?.position, {}, { x: 4, y: -3, z: -1 }, 0)
+    .fromTo(object?.rotation, {}, { x: -1, y: 1.5 }, 0);
+
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: ".timeline-section",
+        start: "-100% start",
+        end: "0% start",
+        scrub: 1,
+      },
+    })
+    .fromTo("#pill_container", {}, { autoAlpha: 0 }, 0)
+    .fromTo(camera?.position, {}, { x: 4, y: -2, z: 1 }, 0)
+    .fromTo(object?.rotation, {}, { x: 1, y: 2 }, 0);
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: ".numbers-container",
+        start: "start center",
+        end: "bottom center",
+        scrub: 1,
+      },
+    })
+    .fromTo("#pill_container", {}, { autoAlpha: 0.5 }, 0)
+    .fromTo(camera?.position, {}, { x: 3, y: -3, z: 2 }, 0)
+    .fromTo(object?.position, {}, { x: 3, y: -1, z: -1 }, 0)
+    .fromTo(object?.rotation, {}, { x: 0.5, y: 1, z: 0.5 }, 0);
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: "#advert",
+        start: "start center",
+        end: "bottom center",
+        scrub: 1,
+      },
+    })
+    .fromTo("#pill_container", {}, { autoAlpha: 0.2 }, 0)
+    .fromTo(object?.position, {}, { x: 2, y: -1, z: 2 }, 0)
+    .fromTo(object?.rotation, {}, { x: 0.5, y: 0.5, z: 0.5 }, 0);
 }
 
 onMounted(() => {
-  gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+  gsap.registerPlugin(ScrollTrigger);
   canvasContainer = document.getElementById("pill_canvas");
   canvasSize = document.getElementById("pill_container");
   aspect = () => canvasSize?.offsetWidth / canvasSize?.offsetHeight;
@@ -75,20 +132,12 @@ onMounted(() => {
   camera = new THREE.PerspectiveCamera(75, aspect(), 0.1, 1000);
 
   const loader = new GLTFLoader();
-  loader.load(
-    "/pill/scene.glb",
-    (gltf: any) => {
-      object = gltf.scene;
-      scene.add(object);
-      addHeroAnimation();
-    },
-    (xhr: any) => {
-      console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-    },
-    (error: any) => {
-      console.error(error);
-    }
-  );
+  loader.load("/pill/scene.glb", (gltf: any) => {
+    object = gltf.scene;
+    object.position.set(2, -1, 0);
+    scene.add(object);
+    addHeroAnimation();
+  });
   renderer = new THREE.WebGLRenderer({
     alpha: true,
     antialias: true,
@@ -96,17 +145,13 @@ onMounted(() => {
   });
   renderer.setSize(canvasSize?.offsetWidth, canvasSize?.offsetHeight);
   canvasSize?.appendChild(renderer?.domElement);
-  camera.position.set(3, -3, 4);
+  camera.position.set(3, -3, 2);
 
   controls = new OrbitControls(camera, renderer?.domElement);
-  controls.enableZoom = false;
-  controls.enablePan = false;
-  controls.autoRotate = true;
   controls.addEventListener("change", render);
 
   const topLight = new THREE.DirectionalLight(0xfff1f5, 3);
-  topLight.position.set(20, 20, 20);
-  topLight.castShadow = true;
+  topLight.position.set(20, 20, 50);
   scene.add(topLight);
 
   const pointLightA = new THREE.PointLight(0x0c58d1, 10);
@@ -133,19 +178,19 @@ onUnmounted(() => {
 </script>
 <template>
   <section id="home" class="hero-container">
-    <div class="text">
-      <h1 class="hero-text-animation">vitaem.</h1>
-      <p class="hero-text-animation">
-        Vitamins Reasearch Center open for sponsorship and pre-orders
-      </p>
-    </div>
+    <h1 class="text hero-text-animation">
+      Vitamins Reasearch Center open for
+      <span class="extra">sponsorship</span> and
+      <span class="extra">pre-orders</span>
+    </h1>
     <div id="pill_container">
       <canvas id="pill_canvas"></canvas>
     </div>
+    <div class="white-screen"></div>
     <div class="bottom-link">
       <RouterLink to="#join"
         ><p>Join Us</p>
-        <i class="lni lni-arrow-down"></i
+        <i class="ti ti-arrow-narrow-down"></i
       ></RouterLink>
     </div>
   </section>
@@ -153,35 +198,46 @@ onUnmounted(() => {
 <style scoped lang="scss">
 @use "../vars";
 .hero-container {
-  padding: vars.$padding-sm;
+  padding: 0 vars.$padding-lg;
+  width: 100%;
   height: 100vh;
   position: relative;
-  h1 {
-    width: fit-content;
-    padding: vars.$padding-xxs vars.$padding-xs;
-    margin-bottom: vars.$gap-md;
-    line-height: 1;
-    color: vars.$background;
-    background: vars.$text;
-    border-radius: vars.$border-radius-sm;
-  }
-  .text {
-    margin-top: 5vh;
-    font-size: vars.$font-h3;
-    max-width: 100%;
+  h1.text {
+    padding-top: 20vh;
+    max-width: 70vw;
+    font-size: vars.$font-h1;
+    font-weight: 300;
+    position: relative;
+    z-index: 1;
   }
 }
 #pill_container {
   display: block;
   position: fixed;
-  width: 150%;
-  height: 120%;
-  bottom: -20%;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  top: 0;
   left: 0;
-  z-index: 1;
-  &:active {
-    cursor: grabbing;
-  }
+  right: 0;
+  z-index: -1;
+}
+
+.white-screen {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  backdrop-filter: blur(7.5px);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  bottom: -50%;
+  z-index: -1;
 }
 
 .bottom-link {
@@ -198,7 +254,6 @@ onUnmounted(() => {
     align-items: center;
     padding: vars.$padding-xs 0;
     gap: vars.$gap-md;
-    font-weight: 500;
     font-size: vars.$font-h3;
     transition: all 0.2s ease-in-out;
     p {
@@ -207,54 +262,40 @@ onUnmounted(() => {
       &::after {
         content: "";
         position: absolute;
-        bottom: - vars.$gap-sm;
+        bottom: 0;
         left: 0;
         right: 0;
         width: 100%;
-        height: vars.$gap-sm;
+        height: 40%;
         background: vars.$gradient-3;
-        border-radius: vars.$border-radius-xs;
-        opacity: 0.3;
+        opacity: 0.5;
         z-index: -1;
         transition: all 0.2s ease-in-out;
       }
     }
     &:hover {
       gap: calc(vars.$gap-md + vars.$gap-sm);
-      padding-bottom: calc(vars.$padding-xs - vars.$gap-xxs);
       p::after {
-        bottom: 0;
+        height: 100%;
+        scale: 1.5;
+        border-radius: vars.$border-radius-md;
       }
     }
   }
 }
 
-@media screen and (min-width: vars.$breakpoint-sm) {
+@media screen and (max-width: vars.$breakpoint-md) {
   .hero-container {
-    padding: vars.$padding-md;
-    .text {
-      font-size: vars.$font-h1;
-    }
-  }
-  .bottom-link {
-    a {
-      font-size: vars.$font-h1;
+    padding: 0 vars.$padding-md;
+    h1.text {
+      font-size: vars.$font-h2;
     }
   }
 }
 
-@media screen and (min-width: vars.$breakpoint-md) {
+@media screen and (max-width: vars.$breakpoint-sm) {
   .hero-container {
-    padding: vars.$padding-lg;
-    .text {
-      max-width: 50vw;
-    }
-  }
-}
-
-@media screen and (min-width: vars.$breakpoint-md) and (max-height: vars.$breakpoint-w-md) {
-  .hero-container {
-    padding: vars.$padding-md vars.$padding-lg;
+    padding: 0 vars.$padding-sm;
   }
 }
 </style>

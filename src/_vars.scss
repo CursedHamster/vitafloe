@@ -1,27 +1,24 @@
 $background: rgb(255, 255, 255);
-$text: rgb(28, 21, 28);
-$primary: rgb(12, 88, 209);
+$text: rgb(50, 54, 62);
+$primary: rgb(103, 156, 242);
 $secondary: rgb(235, 235, 235);
-$accent: rgb(255, 128, 164);
-$text-light: rgb($text, 0.6);
+$accent: rgb(251, 133, 167);
+$text-light: rgb(130, 140, 158);
 $red: rgb(255, 78, 78);
+$gradient-shadow: inset 0px -2px 5px rgba(103, 156, 242, 0.25),
+inset 0px 5px 10px rgba(251, 133, 167, 0.06);
 
-$border-color: rgb($text, 0.2);
-$border-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-
-$translucent-background: rgb($background, 0.9);
-
-$gradient-1: linear-gradient(180deg, $primary 0%, $accent 85%);
-$gradient-2: linear-gradient(0deg, $primary 0%, $accent 85%);
-$gradient-3: linear-gradient(90deg, $primary 0%, $accent 85%);
-$gradient-4: linear-gradient(90deg, rgb($primary, 0.2) 0%, rgb($accent, 0.3) 65%);
-$gradient-5: linear-gradient(-90deg, rgb($primary, 0.2) 0%, rgb($accent, 0.3) 65%);
+$gradient-1: linear-gradient(180deg, $primary 0%, $accent 70%);
+$gradient-2: linear-gradient(0deg, $primary 0%, $accent 70%);
+$gradient-3: linear-gradient(120deg, $accent 32%, $primary 100%);
 
 $breakpoint-sm: 768px;
-$breakpoint-md: 1300px;
+$breakpoint-md: 1350px;
 $breakpoint-w-md: 600px;
 
 $header-offset: 6rem;
+
+$max-text-width: 30rem;
 
 $gap-xxs: 0.1rem;
 $gap-xs: 0.3rem;
@@ -30,33 +27,28 @@ $gap-md: 1rem;
 $gap-lg: 2rem;
 $gap-xl: 3rem;
 
-$padding-xxxs: 0.3rem;
 $padding-xxs: 0.5rem;
 $padding-xs: 1rem;
 $padding-sm: 1.5rem;
 $padding-md: 3rem;
-$padding-lg: 10rem;
+$padding-lg: 7rem;
 
+$border-width: 2px;
 $border-radius-xs: 0.1rem;
-$border-radius-sm: 0.3rem;
-$border-radius-md: 1rem;
+$border-radius-md: 1.5rem;
 $border-radius-lg: 3rem;
 
-$line-width: 2px;
-$active-line-width: 3px;
-$dot-size: 0.6rem;
-$border-width: 3px;
-$checkbox-width: 2.5rem;
-$checkbox-height: 1.5rem;
+$line-width: 4px;
+$dot-size: 1.2rem;
+$checkbox-width: 2.8rem;
+$checkbox-height: 1.6rem;
 $checkbox-dot-size: 1rem;
 $checkbox-offset: calc(($checkbox-height - $checkbox-dot-size) / 2);
 
-$font-size: 20px;
-$font-ult: 4em;
-$font-h0: 2.5em;
-$font-h1: 2em;
-$font-h2: 1.5em;
-$font-h3: 1.2em;
-$font-h4: 1.1em;
+$font-size: 24px;
+$font-h1: 4em;
+$font-h2: 2.5em;
+$font-h3: 1.5em;
+$font-h4: 1.2em;
 $font-sm: 0.9em;
 $font-xs: 0.8em;

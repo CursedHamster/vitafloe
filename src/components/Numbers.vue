@@ -21,6 +21,7 @@ onMounted(() => {
       snap: {
         innerText: 1,
       },
+      stagger: 0.1,
     });
 });
 </script>
@@ -35,11 +36,11 @@ onMounted(() => {
 <style lang="scss" scoped>
 @use "../vars";
 .numbers-container {
-  padding: vars.$padding-md;
+  padding: vars.$padding-lg 0;
   margin: 0 auto;
   display: flex;
-  flex-direction: column;
-  gap: vars.$gap-md;
+  gap: vars.$gap-xl;
+  max-width: 1200px;
 }
 .numbers-object {
   display: flex;
@@ -47,29 +48,27 @@ onMounted(() => {
   justify-content: center;
   align-items: center;
   text-align: center;
+  flex-basis: calc(100% / 3);
   h3 {
-    line-height: 1.5;
-    font-size: vars.$font-ult;
-    background: vars.$gradient-1;
+    line-height: 1.2;
+    font-size: 7em;
+    font-weight: 400;
+    background: vars.$gradient-3;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  p {
-    font-size: vars.$font-h4;
-  }
 }
 
-@media screen and (min-width: vars.$breakpoint-md) {
+@media screen and (max-width: vars.$breakpoint-md) {
   .numbers-container {
-    padding: vars.$padding-lg;
-    flex-direction: row;
-    gap: vars.$gap-xl;
-    max-width: 1400px;
+    padding: vars.$padding-md;
+    flex-direction: column;
+    gap: vars.$gap-lg;
   }
   .numbers-object {
-    flex-basis: calc(100%/3);
+    flex-basis: unset;
     h3 {
-      font-size: 5em;
+      font-size: vars.$font-h1;
     }
   }
 }

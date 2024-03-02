@@ -1,15 +1,19 @@
 <script lang="ts" setup>
 import { ref, watch, onMounted } from "vue";
 import gsap from "gsap";
-import vars from "../_vars.module.scss";
 
 const props = defineProps({ loading: { type: Boolean } });
 const emit = defineEmits(["setShowLoading"]);
 
 let progress = ref(0);
 
-const tlDuration = 1;
-let tl: GSAPTimeline = gsap.timeline();
+const animatedText = "VITAEM".split("");
+const tlDuration = 2;
+const progressTimeline: GSAPTimeline = gsap.timeline();
+const letterTimeline = gsap.timeline({
+  repeat: -1,
+  repeatDelay: 0.2,
+});
 
 watch(
   () => props?.loading,
@@ -21,83 +25,30 @@ watch(
 );
 
 function addUnmountAnimation() {
-  tl.fromTo(".loading-title", {}, { autoAlpha: 0, duration: 0.5 })
-    .fromTo(".loading-progress", {}, { autoAlpha: 0, duration: 0.5, }, "<")
-    .fromTo(
-      ".loading-container",
-      {},
-      { background: "transparent", duration: 0.5 },
-    )
-    .fromTo(
-      ".loading-half-shell--left",
-      {},
-      {
-        borderWidth: vars?.borderWidth,
-        xPercent: -100,
-        autoAlpha: 0,
-        duration: 0.5,
+  letterTimeline.pause();
+  gsap.fromTo(
+    ".loading-container",
+    {},
+    {
+      autoAlpha: 0,
+      duration: 0.2,
+      onComplete: () => {
+        const html: HTMLHtmlElement | null = document.querySelector("html");
+        if (html) {
+          html.style.overflowY = "auto";
+        }
+        emit("setShowLoading", false);
+        progressTimeline?.restart(true);
+        progressTimeline?.kill();
+        letterTimeline?.restart(true);
+        letterTimeline?.kill();
       },
-      "<"
-    )
-    .fromTo(
-      ".loading-half-shell--right",
-      {},
-      {
-        borderWidth: vars?.borderWidth,
-        xPercent: 100,
-        autoAlpha: 0,
-        duration: 0.5,
-      },
-      "<"
-    )
-    .fromTo(
-      "html",
-      {},
-      {
-        overflowY: "auto",
-        onComplete: () => {
-          emit("setShowLoading", false);
-          tl?.restart(true);
-          tl?.kill();
-        },
-      },
-    );
+    }
+  );
 }
 
 onMounted(() => {
-  tl.fromTo(
-    ".loading-half--left",
-    { scaleX: 0, autoAlpha: 0 },
-    {
-      scaleX: 1,
-      autoAlpha: 1,
-      borderTopRightRadius: 0,
-      borderBottomRightRadius: 0,
-      duration: tlDuration,
-    }
-  ).fromTo(
-    ".loading-half--right",
-    { scaleX: 0, autoAlpha: 1 },
-    {
-      scaleX: 1,
-      borderTopRightRadius: vars?.borderRadiusLg,
-      borderBottomRightRadius: vars?.borderRadiusLg,
-      duration: tlDuration,
-    },
-    ">+=.2"
-  );
-  tl.fromTo(
-    progress,
-    {},
-    {
-      value: 50,
-      snap: {
-        value: 1,
-      },
-      duration: tlDuration,
-    },
-    0
-  )
+  progressTimeline
     .fromTo(
       progress,
       {},
@@ -108,24 +59,27 @@ onMounted(() => {
         },
         duration: tlDuration,
       },
-      ">+=.2"
+      0
     )
     .fromTo("html", {}, { overflowY: "hidden" }, 0);
+
+  animatedText?.forEach((ch) => {
+    letterTimeline.fromTo(
+      ".loading-animation",
+      {},
+      {
+        innerText: ch,
+        duration: tlDuration / animatedText.length,
+      }
+    );
+  });
 });
 </script>
 <template>
   <div class="loading-container full-height">
-    <h1 class="loading-title">vitaem.</h1>
-    <div class="loading-animation">
-      <div class="loading-half-shell loading-half-shell--left">
-        <div class="loading-half loading-half--left"></div>
-      </div>
-
-      <div class="loading-half-shell loading-half-shell--right">
-        <div class="loading-half loading-half--right"></div>
-      </div>
-    </div>
+    <div class="loading-animation">V</div>
     <div class="loading-progress">
+      Loading . . .
       <span class="loading-progress-number">{{ progress }}</span
       >%
     </div>
@@ -149,52 +103,30 @@ onMounted(() => {
   background: vars.$background;
   z-index: 1500;
   .loading-animation {
-    width: 100%;
-    max-width: vars.$breakpoint-w-md;
-    height: 10vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .loading-half-shell {
-      position: relative;
-      width: 50%;
-      height: 100%;
-      border-radius: vars.$border-radius-lg;
-      border: vars.$border-width solid vars.$text;
-      overflow: hidden;
-      &--left {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-        border-right-width: calc(vars.$border-width - 1px);
-      }
-      &--right {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        border-left-width: 1px;
-      }
-    }
-    .loading-half {
+    font-size: 40vw;
+    font-weight: 300;
+    &::before {
+      content: "";
       position: absolute;
-      width: 100%;
-      height: calc(100% - vars.$border-width);
+      max-width: 40vw;
+      max-height: 40vh;
+      aspect-ratio: 1/1;
+      background: vars.$gradient-3;
+      top: 0;
+      left: 0;
+      right: 0;
       bottom: 0;
-      transform-origin: 0 0;
+      margin: auto;
+      opacity: 0.3;
       z-index: -1;
-      &--left {
-        left: 0;
-        border-radius: vars.$border-radius-lg;
-        background: rgb(vars.$accent, 0.4);
-      }
-      &--right {
-        right: 0;
-        background: vars.$gradient-5;
-      }
     }
   }
-
-  .loading-progress,
-  .loading-title {
-    font-size: vars.$font-h1;
+  .loading-progress {
+    position: absolute;
+    right: vars.$padding-sm;
+    bottom: vars.$padding-sm;
+  }
+  .loading-progress-number {
     font-weight: 500;
   }
 }

@@ -1,20 +1,12 @@
 export default {
   sections: [
     {
-      title: "Home",
-      id: "home",
-    },
-    {
       title: "Benefits",
       id: "benefits",
     },
     {
       title: "Timeline",
       id: "timeline",
-    },
-    {
-      title: "Statistics",
-      id: "statistics",
     },
     {
       title: "Testimonials",
@@ -24,20 +16,16 @@ export default {
       title: "Why join us",
       id: "advert",
     },
-    {
-      title: "Join",
-      id: "join",
-    },
   ],
   socials: [
     {
       title: "Instagram",
-      icon: "lni-instagram",
+      icon: "ti-brand-instagram",
       url: "#",
     },
     {
       title: "Facebook",
-      icon: "lni-facebook-line",
+      icon: "ti-brand-facebook",
       url: "#",
     },
   ],
@@ -48,21 +36,21 @@ export default {
         description:
           "Experience exclusive vitamins crafted for optimal well-being based on the latest scientific studies",
         imgUrl:
-          "https://images.unsplash.com/photo-1607925878363-34e094e216ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80",
+          "https://images.unsplash.com/photo-1531923610693-c816870f3b44?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       },
       {
         title: "Rigorous Quality Assurance",
         description:
           "Invest in top-tier quality with vitamins rigorously tested in our state-of-the-art laboratories for purity, potency, and effectiveness",
         imgUrl:
-          "https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1540&q=80",
+          "https://images.unsplash.com/photo-1555633514-abcee6ab92e1?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       },
       {
         title: "Exclusive Limited Editions",
         description:
           "Unlock limited edition formulations and exclusive offers directly from our research center, prioritizing your health with groundbreaking solutions",
         imgUrl:
-          "https://images.unsplash.com/photo-1582719471137-c3967ffb1c42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1544&q=80",
+          "https://images.unsplash.com/photo-1554475901-e2ce1a3f857e?q=80&w=2672&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       },
     ],
   },
@@ -74,7 +62,7 @@ export default {
         description:
           "In 2021, Vitaem embarked on its journey in nutritional science, forming crucial partnerships and launching with a commitment to pioneering advancements in formulations. Fueled by the vision of enhancing overall well-being, our team at Vitaem began laying the groundwork for a future where cutting-edge research shapes the landscape of nutritional solutions.",
         imgUrl:
-          "https://images.unsplash.com/photo-1562789278-dac7af7fb5b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80",
+          "https://images.unsplash.com/photo-1566216867955-5b2e8c77e45f?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       },
       {
         year: "2022",
@@ -82,7 +70,7 @@ export default {
         description:
           "The year 2022 witnessed the initiation of an extensive research and development phase at Vitaem to create a groundbreaking vitamin formula, with collaborations ensuring alignment with the latest scientific discoveries. As our team delved into the intricacies of nutritional science, we remained dedicated to crafting a wellness breakthrough that not only met but exceeded the expectations of those seeking optimal health.",
         imgUrl:
-          "https://images.unsplash.com/photo-1614935151651-0bea6508db6b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1525&q=80",
+          "https://images.unsplash.com/photo-1616458964840-5108e4d3adb3?q=80&w=2672&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       },
       {
         year: "2023",
@@ -90,7 +78,7 @@ export default {
         description:
           "In 2023, comprehensive testing protocols confirmed the quality, purity, and effectiveness of Vitaem's exclusive vitamin formulations. As the results of meticulous testing triumphed, we celebrated the validation of our commitment to excellence. In November, an official announcement from Vitaem declared them ready for pre-order, marking a new era of wellness through science-backed nutrition and inviting individuals to join us on this exciting journey toward a healthier future.",
         imgUrl:
-          "https://images.unsplash.com/photo-1555633514-abcee6ab92e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80",
+          "https://images.unsplash.com/photo-1516826435551-36a8a09e4526?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       },
     ],
   },
@@ -226,7 +214,7 @@ export default {
     pros: [
       "get to pre-order up to 10 000 units",
       "receive the most important updates on our products",
-      "improve your overall health by taking vitaem.",
+      "improve your overall health by taking Vitaem",
       "acquire vitamins of the highest quality",
     ],
   },

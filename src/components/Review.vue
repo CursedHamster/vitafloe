@@ -16,21 +16,31 @@ defineProps<{ reviewInfo: ReviewObjectInfo }>();
 <style lang="scss" scoped>
 @use "../vars";
 .review-container {
+  position: relative;
   flex-shrink: 0;
   width: fit-content;
-  padding: vars.$padding-xs vars.$padding-sm;
-  border: 1px solid vars.$border-color;
-  border-radius: vars.$border-radius-sm;
-  box-shadow: vars.$border-shadow;
-  background: rgb(vars.$background, .5);
-  backdrop-filter: blur(5px);
+  padding: vars.$padding-sm vars.$padding-sm;
+  background: vars.$background;
+  border: vars.$border-width solid vars.$text;
+  box-shadow: vars.$gradient-shadow;
+  border-radius: vars.$border-radius-md;
+  font-size: vars.$font-xs;
+  h4 {
+    font-weight: 700;
+  }
   .job-title {
+    position: absolute;
+    top: -1em;
+    right: 2rem;
     line-height: 1;
-    color: vars.$text-light;
+    padding: vars.$padding-xxs vars.$padding-xs;
+    color: vars.$background;
+    background: vars.$text;
+    border-radius: vars.$border-radius-lg;
     font-size: vars.$font-xs;
   }
   .description {
-    margin-top: vars.$gap-sm;
+    margin-top: vars.$gap-xxs;
   }
 }
 </style>

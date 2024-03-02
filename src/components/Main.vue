@@ -10,6 +10,10 @@ let windowHeight: number;
 
 function resize() {
   windowHeight = window?.innerHeight;
+  const scrollT = ScrollTrigger?.getById("main");
+  scrollT?.disable(true, true);
+  scrollT?.refresh();
+  scrollT?.enable(true, true);
 }
 
 onMounted(() => {
@@ -17,19 +21,17 @@ onMounted(() => {
 
   const mainCards: any[] = gsap.utils.toArray(".main-card");
 
-  ScrollTrigger.addEventListener("refreshInit", resize);
+  window.addEventListener("resize", resize);
+
   resize();
 
-  gsap.timeline({
-    scrollTrigger: {
-      trigger: ".main-cards-container",
-      start: "top top",
-      end: () => "+=" + mainCards?.length * windowHeight,
-      scrub: 1,
-      pin: ".main-container",
-      pinSpacer: ".main-pin-spacer",
-      invalidateOnRefresh: true,
-    },
+  ScrollTrigger?.create({
+    id: "main",
+    trigger: ".main-container",
+    start: () => document.querySelector(".main-container")?.clientTop + " top",
+    end: () => `+=${cards?.length * window.innerHeight} top`,
+    pin: ".main-container",
+    invalidateOnRefresh: true,
   });
 
   gsap.fromTo(
@@ -51,53 +53,46 @@ onMounted(() => {
       gsap
         .timeline({
           scrollTrigger: {
-            trigger: ".main-pin-spacer",
+            trigger: ".pin-spacer-main",
             start: () => "+=" + (i - 1) * windowHeight,
             end: () => "+=" + windowHeight,
             scrub: true,
             invalidateOnRefresh: true,
-            // markers: true,
           },
         })
         .fromTo(
           mainCard,
-          { xPercent: 100, yPercent: -100 },
-          { xPercent: 2 * i, yPercent: -2 * i },
+          {
+            xPercent: 100,
+            yPercent: -100,
+            filter: "blur(2px)",
+            autoAlpha: 0.8,
+          },
+          {
+            xPercent: 2 * i,
+            yPercent: -2 * i,
+            filter: "blur(0px)",
+            autoAlpha: 1,
+          },
           0
         )
         .fromTo(
           mainCards[i - 1],
-          { filter: "brightness(100%)" },
+          { filter: "blur(0px)", autoAlpha: 1 },
           {
-            filter: "brightness(95%)",
+            filter: `blur(${3 / i}px)`,
+            autoAlpha: 0.3 + 0.2 * i,
             duration: 0.1,
           }
         );
     }
   });
-
-  const ballAnimation = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".main-pin-spacer",
-      start: "top bottom",
-      end: "bottom bottom",
-      invalidateOnRefresh: true,
-      scrub: 1,
-    },
-  });
-
-  ballAnimation
-    ?.fromTo(".ball--1", {}, { top: "20%", left: "10%" })
-    .fromTo(".ball--2", {}, { top: "50%", left: "60%" }, 0)
-    .fromTo(".ball--1", {}, { top: "10%", left: "-50%", scale: 0 }, "50%")
-    .fromTo(".ball--2", {}, { top: "80%", left: "110%", scale: 0 }, "<");
 });
 
-onUnmounted(() => ScrollTrigger.removeEventListener("refreshInit", resize));
+onUnmounted(() => window.removeEventListener("resize", resize));
 </script>
 <template>
   <main id="benefits" class="main-container section-container">
-    <div class="main-pin-spacer"></div>
     <ul class="main-cards-container">
       <li class="main-card" v-for="card in cards">
         <MainCard :card-info="card" />
@@ -109,7 +104,7 @@ onUnmounted(() => ScrollTrigger.removeEventListener("refreshInit", resize));
       </h2>
       <p>
         Elevate your health journey with our exclusive range of vitamins. At
-        vitaem., we're committed to pioneering cutting-edge formulations that
+        Vitaem, we're committed to pioneering cutting-edge formulations that
         prioritize your well-being.
       </p>
     </div>
@@ -117,23 +112,18 @@ onUnmounted(() => ScrollTrigger.removeEventListener("refreshInit", resize));
 </template>
 <style lang="scss" scoped>
 @use "../vars";
-.main-pin-spacer {
-  width: 100% !important;
-}
 .main-container {
   width: 100% !important;
+  max-width: 100% !important;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   overflow: hidden;
 }
 
 .main-cards-container {
-  // display: flex;
-  // flex-wrap: nowrap;
+  flex-basis: 50%;
   width: 100%;
-  // width: 50%;
   min-height: 100vh;
   max-height: 100vh;
   overflow: visible;
@@ -149,42 +139,42 @@ onUnmounted(() => ScrollTrigger.removeEventListener("refreshInit", resize));
     right: 0;
     bottom: 0;
     margin: 0;
-    padding: vars.$header-offset 0 0;
+    padding: vars.$header-offset vars.$padding-md 0;
   }
 }
 
 .main-text-container {
   width: 100%;
-  padding: vars.$header-offset vars.$padding-sm 0;
+  padding-left: vars.$padding-md;
+  padding-right: vars.$padding-lg;
+  flex-basis: 50%;
   text-align: center;
+  .section-title {
+    margin-bottom: vars.$padding-sm;
+  }
   p {
-    font-size: vars.$font-h3;
+    max-width: vars.$max-text-width;
+    margin: 0 auto;
   }
 }
 
-@media screen and (min-width: vars.$breakpoint-sm) {
+@media screen and (max-width: vars.$breakpoint-md) {
+  .main-container {
+    flex-direction: column;
+  }
+  .main-text-container {
+    padding: 0 vars.$padding-md;
+  }
+}
+
+@media screen and (max-width: vars.$breakpoint-sm) {
   .main-cards-container {
     li {
-      padding: vars.$header-offset vars.$padding-md 0;
+      padding: vars.$header-offset 0 0;
     }
   }
   .main-text-container {
-    padding: 0 vars.$padding-md;
-  }
-}
-
-@media screen and (min-width: vars.$breakpoint-md) {
-  .main-container {
-    flex-direction: row;
-  }
-  .main-cards-container {
-    flex-basis: 50%;
-  }
-  .main-text-container {
-    padding: 0 vars.$padding-md;
-    padding-right: vars.$padding-lg;
-    padding-bottom: 0;
-    flex-basis: 50%;
+    padding: 0 vars.$padding-sm;
   }
 }
 </style>

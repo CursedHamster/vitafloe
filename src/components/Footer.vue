@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import Button from "./Button.vue";
 import data from "../assets/data";
 const contents = data?.sections;
 const socials = data?.socials;
@@ -6,93 +7,116 @@ const socials = data?.socials;
 <template>
   <footer class="footer">
     <div class="title-container">
-      <p>vitaem.</p>
-    </div>
-    <div class="details-container">
-      <div class="contents">
-        <RouterLink v-for="content in contents" :to="'#' + content?.id">{{
-          content?.title
-        }}</RouterLink>
+      <h2>vitaem</h2>
+      <div class="btn-container">
+        <Button button-size="lg" @click="$router.push('#join')">Join</Button>
+        <div class="socials">
+          <a
+            v-for="social in socials"
+            class="social"
+            :href="social?.url"
+            :aria-label="social?.title"
+            ><i class="ti" :class="[social?.icon]"></i
+          ></a>
+        </div>
       </div>
-      <p class="c">©2023 vitaem., Inc. All rights reserved.</p>
     </div>
-    <div class="socials">
-      <a
-        v-for="social in socials"
-        class="social"
-        :href="social?.url"
-        :aria-label="social?.title"
-        ><i class="lni" :class="[social?.icon]"></i
-      ></a>
+    <div class="contents">
+      <RouterLink v-for="content in contents" :to="'#' + content?.id">{{
+        content?.title
+      }}</RouterLink>
     </div>
+    <p class="c">©2023 vitaem., Inc. All rights reserved.</p>
   </footer>
 </template>
 <style lang="scss" scoped>
 @use "../vars";
 .footer {
-  background: vars.$secondary;
+  background: vars.$background;
   width: 100%;
   display: flex;
+  flex-direction: column;
+  gap: vars.$gap-lg;
+  padding: vars.$padding-sm vars.$padding-lg;
   .title-container {
-    background: vars.$text;
-    color: vars.$background;
-    writing-mode: vertical-rl;
-    text-orientation: sideways-right;
-    transform: rotate(180deg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: vars.$padding-sm vars.$padding-xs;
-    font-size: vars.$font-h0;
-    line-height: 1;
-    font-weight: 500;
-  }
-  .details-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: vars.$padding-xs vars.$padding-sm;
-    gap: vars.$gap-lg;
     width: 100%;
-    .contents {
-      flex-grow: 1;
-      width: 100%;
-      box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: vars.$gap-lg;
+    flex-wrap: wrap;
+    h2 {
+      font-size: vars.$font-h1;
+      line-height: 1;
+      font-weight: 300;
+    }
+    .btn-container {
       display: flex;
-      gap: vars.$gap-lg;
-      row-gap: vars.$gap-md;
-      flex-wrap: wrap;
-      font-weight: 500;
-      text-transform: capitalize;
-      height: fit-content;
-      a {
-        font-size: vars.$font-h4;
-        display: block;
+      align-items: center;
+      gap: vars.$gap-md;
+      flex-wrap: wrap-reverse;
+      .btn {
+        width: fit-content;
+        flex: 1;
+        margin-right: vars.$padding-sm;
       }
     }
   }
-  .socials {
-    background: vars.$text;
+  .contents {
+    flex-grow: 1;
+    width: 100%;
+    box-sizing: border-box;
     display: flex;
-    flex-direction: column;
+    gap: vars.$gap-lg;
+    row-gap: vars.$gap-lg;
+    flex-wrap: wrap;
+    text-transform: capitalize;
+    height: fit-content;
+  }
+  .socials {
+    display: flex;
     gap: vars.$gap-md;
+    justify-content: center;
     align-items: center;
-    padding: vars.$padding-sm vars.$padding-xs;
-    font-size: vars.$font-h1;
+    font-size: vars.$font-h3;
     .social {
+      width: 3rem;
+      height: 3rem;
       color: vars.$background;
+      background: vars.$text;
       line-height: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
       i {
         pointer-events: none;
       }
     }
   }
+  .c {
+    color: vars.$text-light;
+    font-size: vars.$font-xs;
+  }
 }
 
-@media screen and (min-width: vars.$breakpoint-sm) {
+@media screen and (max-width: vars.$breakpoint-md) {
   .footer {
-    .details-container {
-      padding: vars.$padding-sm vars.$padding-md;
+    padding: vars.$padding-sm vars.$padding-md;
+    border: none;
+  }
+}
+
+@media screen and (max-width: vars.$breakpoint-sm) {
+  .footer {
+    padding: vars.$padding-sm;
+    .title-container {
+      .btn-container {
+        gap: vars.$gap-lg;
+        .btn {
+          margin-right: 0;
+        }
+      }
     }
   }
 }

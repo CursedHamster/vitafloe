@@ -83,14 +83,14 @@ onMounted(() => {
   padding: vars.$padding-md 0;
   .section-title {
     text-align: center;
-    padding: 0 vars.$padding-sm;
+    padding: 0 vars.$padding-lg;
   }
 }
 .reviews-container {
   padding: vars.$padding-xs 0;
   display: flex;
   flex-direction: column;
-  gap: vars.$gap-md;
+  gap: vars.$gap-lg;
   overflow-x: hidden;
 }
 
@@ -98,11 +98,11 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
   flex-flow: nowrap;
-  gap: vars.$gap-md;
-  padding: 0 vars.$padding-xs;
+  gap: vars.$gap-lg;
+  padding: 0 vars.$padding-sm;
 }
 
-@media screen and (min-width: vars.$breakpoint-sm) {
+@media screen and (max-width: vars.$breakpoint-md) {
   #testimonials {
     .section-title {
       padding: 0 vars.$padding-md;
@@ -110,10 +110,10 @@ onMounted(() => {
   }
 }
 
-@media screen and (min-width: vars.$breakpoint-md) {
+@media screen and (max-width: vars.$breakpoint-sm) {
   #testimonials {
     .section-title {
-      padding: 0 vars.$padding-lg;
+      padding: 0 vars.$padding-sm;
     }
   }
 }

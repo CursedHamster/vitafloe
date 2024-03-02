@@ -2,17 +2,27 @@
 import gsap from "gsap";
 import vars from "../_vars.module.scss";
 
+const defaultSize = "md"
+const defaultStyle = "standard"
 const props = defineProps({
   buttonSize: {
     type: String,
-    default: "md",
+    default: defaultSize,
   },
+  buttonStyle: {
+    type: String,
+    default: defaultStyle
+  }
 });
 const emit = defineEmits(["click"]);
-const buttonSizes = ["sm", "md", "lg"];
+const buttonSizes = [defaultSize, "lg"];
+const buttonStyles = [defaultStyle, "static"];
 const size = buttonSizes?.includes(props?.buttonSize)
   ? props?.buttonSize
-  : "md";
+  : defaultSize;
+  const style = buttonStyles?.includes(props?.buttonStyle)
+  ? props?.buttonStyle
+  : defaultStyle;
 
 const tl = gsap.timeline();
 
@@ -22,6 +32,7 @@ function hoverButton(e: MouseEvent) {
     tl.clear();
   }
 
+  if (props?.buttonStyle === defaultStyle) {
   tl.fromTo(
     target,
     { y: -3, x: -3 },
@@ -33,7 +44,7 @@ function hoverButton(e: MouseEvent) {
       yoyo: true,
       duration: 0.3,
     }
-  );
+  );}
 }
 
 function leaveButton(e: MouseEvent) {
@@ -41,7 +52,8 @@ function leaveButton(e: MouseEvent) {
   if (tl.isActive()) {
     tl.clear();
   }
-  tl.fromTo(
+  if (props?.buttonStyle === defaultStyle) {
+    tl.fromTo(
     target,
     {},
     {
@@ -50,6 +62,7 @@ function leaveButton(e: MouseEvent) {
       duration: 0.2,
     }
   );
+  }
 }
 
 function clickButton(e: MouseEvent) {
@@ -60,7 +73,7 @@ function clickButton(e: MouseEvent) {
 <template>
   <button
     class="btn"
-    :class="size"
+    :class="size, style"
     @mouseover="hoverButton"
     @mouseleave="leaveButton"
     @click="clickButton"
@@ -72,33 +85,40 @@ function clickButton(e: MouseEvent) {
 @use "../vars";
 
 .btn {
-  width: 100%;
-  padding: vars.$padding-xxs vars.$padding-xs;
+  padding: vars.$padding-xxs vars.$padding-md;
   cursor: none;
   border-radius: vars.$border-radius-lg;
-  border: 2px solid vars.$text;
+  border: vars.$border-width solid vars.$text;
   background: none;
   color: vars.$text;
   font-size: 1em;
-  font-weight: 600;
+  font-weight: 700;
+  line-height: 1;
+  &.static {
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      background: vars.$text;
+      color: vars.$background;
+    }
+  }
   &.lg {
-    padding: vars.$padding-xxs vars.$padding-md;
-    font-size: vars.$font-h2;
+    padding: vars.$padding-xs vars.$padding-md;
+    font-size: vars.$font-h3;
   }
 }
 
-@media screen and (min-width: vars.$breakpoint-sm) {
-  .btn {
-    width: fit-content;
-  }
-}
-
-@media screen and (min-width: vars.$breakpoint-md) {
+@media screen and (max-width: vars.$breakpoint-md) {
   .btn {
     &.lg {
-      padding: vars.$padding-xxs vars.$padding-md;
-      font-size: vars.$font-h1;
+      font-size: vars.$font-h4;
     }
+  }
+}
+
+@media screen and (max-width: vars.$breakpoint-sm) {
+  .btn {
+    width: 100%;
+    padding: vars.$padding-xxs vars.$padding-sm;
   }
 }
 </style>
