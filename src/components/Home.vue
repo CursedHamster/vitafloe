@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
+import { onMounted, onUnmounted } from "vue";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Flip } from "gsap/Flip";
-import Hero from "./Hero.vue";
+// import Hero from "./Hero.vue";
 import Main from "./Main.vue";
 import Timeline from "./Timeline.vue";
 import Numbers from "./Numbers.vue";
