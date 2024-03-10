@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted } from "vue";
-import { gsap } from "gsap";
+import { gsap, GSAPTimeline } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Flip } from "gsap/Flip";
 // import Hero from "./Hero.vue";
@@ -128,7 +128,9 @@ function addTimelineAnimation() {
     .to(
       ".dot-character",
       {
-        y: () => document.querySelector(".line")?.clientHeight,
+        y: <gsap.TweenValue>(
+          (() => document.querySelector(".line")?.clientHeight)
+        ),
         ease: "none",
         duration: 1,
       },
@@ -152,30 +154,29 @@ function addTimelineAnimation() {
 
   objects?.forEach((object: gsap.DOMTarget) => {
     const objectSelector = gsap.utils.selector(object);
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: object,
-          start: () => "top center",
-          end: () => "bottom center",
-          toggleActions: "play none none reset",
-          toggleClass: "active",
-          invalidateOnRefresh: true,
-        },
-      })
-      // .to(objectSelector(".dot-container"), {
-      //   borderColor: vars?.primary,
-      //   duration: 0.2,
-      // })
-      // .fromTo(
-      //   objectSelector(".dot"),
-      //   { scale: 0 },
-      //   {
-      //     scale: 1,
-      //     duration: 0.2,
-      //   },
-      //   0
-      // );
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: object,
+        start: () => "top center",
+        end: () => "bottom center",
+        toggleActions: "play none none reset",
+        toggleClass: "active",
+        invalidateOnRefresh: true,
+      },
+    });
+    // .to(objectSelector(".dot-container"), {
+    //   borderColor: vars?.primary,
+    //   duration: 0.2,
+    // })
+    // .fromTo(
+    //   objectSelector(".dot"),
+    //   { scale: 0 },
+    //   {
+    //     scale: 1,
+    //     duration: 0.2,
+    //   },
+    //   0
+    // );
 
     gsap
       .timeline({
