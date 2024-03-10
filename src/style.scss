@@ -1,7 +1,6 @@
 @use "vars";
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 :root {
-  font-family: Quicksand;
   line-height: 1.5;
   font-weight: 400;
   font-size: vars.$font-size;
@@ -21,6 +20,7 @@
 }
 
 * {
+  font-family: Quicksand;
   margin: 0;
   box-sizing: border-box;
 }
@@ -35,8 +35,8 @@ body {
 button {
   cursor: none;
   border: 0;
+  padding: 0;
   outline: 0;
-  font-family: Quicksand;
   font-size: inherit;
   * {
     pointer-events: none;
@@ -62,15 +62,15 @@ li {
 }
 
 input {
-  color: vars.$text;
   width: 100%;
   max-width: 100%;
+  padding: 0;
   padding: vars.$padding-xxs vars.$padding-sm;
+  color: vars.$text;
   background: none;
-  border: vars.$border-width solid vars.$text;
+  border: vars.$border-width solid vars.$text-light;
   border-radius: vars.$border-radius-md;
   line-height: 1;
-  font-family: inherit;
   font-size: 1em;
   -webkit-border-radius: vars.$border-radius-md;
   -moz-border-radius: vars.$border-radius-md;
@@ -83,9 +83,12 @@ input {
   -o-transition: all 0.2s ease-in-out;
   &::placeholder {
     color: vars.$text-light;
+    line-height: 1;
+    font-size: 1em;
   }
   &:focus,
   &:active {
+    border-color: vars.$text;
     outline: none;
   }
 }
@@ -226,7 +229,7 @@ input[type="checkbox"] {
   }
 }
 
-@media screen and (max-height: vars.$breakpoint-w-md) {
+@media screen and (max-height: vars.$breakpoint-h-md) {
   body {
     font-size: vars.$font-xs;
   }

@@ -64,14 +64,10 @@ onMounted(() => {
     .fromTo("html", {}, { overflowY: "hidden" }, 0);
 
   animatedText?.forEach((ch) => {
-    letterTimeline.fromTo(
-      ".loading-animation",
-      {},
-      {
-        innerText: ch,
-        duration: tlDuration / animatedText.length,
-      }
-    );
+    letterTimeline.to(".loading-animation", {
+      innerText: ch,
+      duration: tlDuration / animatedText.length,
+    });
   });
 });
 </script>

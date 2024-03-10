@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import gsap from "gsap";
+import { gsap } from "gsap";
 import vars from "../_vars.module.scss";
 
-const defaultSize = "md"
-const defaultStyle = "standard"
+const defaultSize = "md";
+const defaultStyle = "standard";
 const props = defineProps({
   buttonSize: {
     type: String,
@@ -11,8 +11,8 @@ const props = defineProps({
   },
   buttonStyle: {
     type: String,
-    default: defaultStyle
-  }
+    default: defaultStyle,
+  },
 });
 const emit = defineEmits(["click"]);
 const buttonSizes = [defaultSize, "lg"];
@@ -20,7 +20,7 @@ const buttonStyles = [defaultStyle, "static"];
 const size = buttonSizes?.includes(props?.buttonSize)
   ? props?.buttonSize
   : defaultSize;
-  const style = buttonStyles?.includes(props?.buttonStyle)
+const style = buttonStyles?.includes(props?.buttonStyle)
   ? props?.buttonStyle
   : defaultStyle;
 
@@ -33,18 +33,19 @@ function hoverButton(e: MouseEvent) {
   }
 
   if (props?.buttonStyle === defaultStyle) {
-  tl.fromTo(
-    target,
-    { y: -3, x: -3 },
-    {
-      y: 0,
-      x: 0,
-      color: vars?.background,
-      background: vars?.text,
-      yoyo: true,
-      duration: 0.3,
-    }
-  );}
+    tl.fromTo(
+      target,
+      { y: -3, x: -3 },
+      {
+        y: 0,
+        x: 0,
+        color: vars?.background,
+        background: vars?.text,
+        yoyo: true,
+        duration: 0.3,
+      }
+    );
+  }
 }
 
 function leaveButton(e: MouseEvent) {
@@ -53,15 +54,11 @@ function leaveButton(e: MouseEvent) {
     tl.clear();
   }
   if (props?.buttonStyle === defaultStyle) {
-    tl.fromTo(
-    target,
-    {},
-    {
+    tl.to(target, {
       color: vars?.text,
       background: "none",
       duration: 0.2,
-    }
-  );
+    });
   }
 }
 
@@ -73,7 +70,7 @@ function clickButton(e: MouseEvent) {
 <template>
   <button
     class="btn"
-    :class="size, style"
+    :class="[size, style]"
     @mouseover="hoverButton"
     @mouseleave="leaveButton"
     @click="clickButton"
@@ -85,7 +82,7 @@ function clickButton(e: MouseEvent) {
 @use "../vars";
 
 .btn {
-  padding: vars.$padding-xxs vars.$padding-md;
+  padding: vars.$padding-xxs vars.$padding-sm;
   cursor: none;
   border-radius: vars.$border-radius-lg;
   border: vars.$border-width solid vars.$text;
@@ -94,6 +91,10 @@ function clickButton(e: MouseEvent) {
   font-size: 1em;
   font-weight: 700;
   line-height: 1;
+  display: flex;
+  gap: vars.$gap-sm;
+  justify-content: center;
+  align-items: center;
   &.static {
     transition: all 0.2s ease-in-out;
     &:hover {
@@ -109,16 +110,15 @@ function clickButton(e: MouseEvent) {
 
 @media screen and (max-width: vars.$breakpoint-md) {
   .btn {
-    &.lg {
-      font-size: vars.$font-h4;
-    }
+    // width: 100%;
+    padding: vars.$padding-xs vars.$padding-md;
+    font-size: vars.$font-h4;
   }
 }
 
 @media screen and (max-width: vars.$breakpoint-sm) {
   .btn {
     width: 100%;
-    padding: vars.$padding-xxs vars.$padding-sm;
   }
 }
 </style>

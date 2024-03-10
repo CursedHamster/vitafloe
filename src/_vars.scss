@@ -4,7 +4,7 @@ $primary: rgb(103, 156, 242);
 $secondary: rgb(235, 235, 235);
 $accent: rgb(251, 133, 167);
 $text-light: rgb(130, 140, 158);
-$red: rgb(255, 78, 78);
+$red: rgb(208, 48, 48);
 $gradient-shadow: inset 0px -2px 5px rgba(103, 156, 242, 0.25),
 inset 0px 5px 10px rgba(251, 133, 167, 0.06);
 
@@ -12,9 +12,10 @@ $gradient-1: linear-gradient(180deg, $primary 0%, $accent 70%);
 $gradient-2: linear-gradient(0deg, $primary 0%, $accent 70%);
 $gradient-3: linear-gradient(120deg, $accent 32%, $primary 100%);
 
-$breakpoint-sm: 768px;
+$breakpoint-xs: 400px;
+$breakpoint-sm: 767px;
 $breakpoint-md: 1350px;
-$breakpoint-w-md: 600px;
+$breakpoint-h-md: 800px;
 
 $header-offset: 6rem;
 
@@ -46,8 +47,8 @@ $checkbox-dot-size: 1rem;
 $checkbox-offset: calc(($checkbox-height - $checkbox-dot-size) / 2);
 
 $font-size: 24px;
-$font-h1: 4em;
-$font-h2: 2.5em;
+$font-h1: 3em;
+$font-h2: 2em;
 $font-h3: 1.5em;
 $font-h4: 1.2em;
 $font-sm: 0.9em;

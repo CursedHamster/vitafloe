@@ -1,29 +1,8 @@
 <script lang="ts" setup>
-import { onMounted } from "vue";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import data from "../assets/data";
 import Button from "./Button.vue";
 
 const pros = data?.advert?.pros;
-
-onMounted(() => {
-  gsap.registerPlugin(ScrollTrigger);
-
-  gsap
-    .timeline({
-      scrollTrigger: {
-        trigger: ".pros-list",
-        start: "top bottom",
-        end: "bottom bottom",
-      },
-    })
-    .fromTo(
-      ".pros-item",
-      { opacity: 0, x: -50 },
-      { opacity: 1, x: 0, duration: 0.3, stagger: 0.2 }
-    );
-});
 </script>
 <template>
   <section id="advert">
@@ -46,7 +25,7 @@ onMounted(() => {
 #advert {
   display: flex;
   flex-direction: row;
-  padding: 0 0 vars.$padding-md;
+  padding: 0 0 vars.$padding-lg;
   .section-title {
     text-align: start;
   }
@@ -60,7 +39,6 @@ onMounted(() => {
   z-index: 10;
   .phone {
     left: unset;
-    transform: rotate(-10deg);
     height: 100% !important;
   }
   &::before {
@@ -80,9 +58,10 @@ onMounted(() => {
   }
 }
 .text-container {
-  padding: 0 vars.$padding-sm vars.$padding-lg;
+  padding: 0 vars.$padding-lg 0 vars.$padding-sm;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
   flex-basis: 50%;
   .pros-list {
@@ -125,14 +104,17 @@ onMounted(() => {
   }
   .text-container {
     flex-basis: unset;
-    padding-right: vars.$padding-md;
+    padding: 0 vars.$padding-md vars.$padding-lg;
     align-items: center;
+    .pros-list {
+      width: fit-content;
+    }
   }
 }
 
 @media screen and (max-width: vars.$breakpoint-sm) {
   .text-container {
-    padding-right: vars.$padding-sm;
+    padding: 0 vars.$padding-sm vars.$padding-md;
   }
 }
 </style>

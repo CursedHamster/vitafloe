@@ -1,95 +1,8 @@
 <script lang="ts" setup>
-import { onMounted, onUnmounted } from "vue";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import data from "../assets/data";
 import MainCard from "./MainCard.vue";
 
 const cards = data?.main?.cards;
-let windowHeight: number;
-
-function resize() {
-  windowHeight = window?.innerHeight;
-  const scrollT = ScrollTrigger?.getById("main");
-  scrollT?.disable(true, true);
-  scrollT?.refresh();
-  scrollT?.enable(true, true);
-}
-
-onMounted(() => {
-  gsap.registerPlugin(ScrollTrigger);
-
-  const mainCards: any[] = gsap.utils.toArray(".main-card");
-
-  window.addEventListener("resize", resize);
-
-  resize();
-
-  ScrollTrigger?.create({
-    id: "main",
-    trigger: ".main-container",
-    start: () => document.querySelector(".main-container")?.clientTop + " top",
-    end: () => `+=${cards?.length * window.innerHeight} top`,
-    pin: ".main-container",
-    invalidateOnRefresh: true,
-  });
-
-  gsap.fromTo(
-    mainCards[0],
-    { scale: 0 },
-    {
-      scale: 1,
-      scrollTrigger: {
-        trigger: ".main-container",
-        start: "top bottom",
-        end: "bottom bottom",
-        scrub: 1,
-      },
-    }
-  );
-
-  mainCards?.forEach((mainCard, i) => {
-    if (i > 0) {
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: ".pin-spacer-main",
-            start: () => "+=" + (i - 1) * windowHeight,
-            end: () => "+=" + windowHeight,
-            scrub: true,
-            invalidateOnRefresh: true,
-          },
-        })
-        .fromTo(
-          mainCard,
-          {
-            xPercent: 100,
-            yPercent: -100,
-            filter: "blur(2px)",
-            autoAlpha: 0.8,
-          },
-          {
-            xPercent: 2 * i,
-            yPercent: -2 * i,
-            filter: "blur(0px)",
-            autoAlpha: 1,
-          },
-          0
-        )
-        .fromTo(
-          mainCards[i - 1],
-          { filter: "blur(0px)", autoAlpha: 1 },
-          {
-            filter: `blur(${3 / i}px)`,
-            autoAlpha: 0.3 + 0.2 * i,
-            duration: 0.1,
-          }
-        );
-    }
-  });
-});
-
-onUnmounted(() => window.removeEventListener("resize", resize));
 </script>
 <template>
   <main id="benefits" class="main-container section-container">
@@ -118,7 +31,7 @@ onUnmounted(() => window.removeEventListener("resize", resize));
   min-height: 100vh;
   display: flex;
   align-items: center;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .main-cards-container {
@@ -126,7 +39,6 @@ onUnmounted(() => window.removeEventListener("resize", resize));
   width: 100%;
   min-height: 100vh;
   max-height: 100vh;
-  overflow: visible;
   position: relative;
   z-index: 20;
   li {
@@ -139,7 +51,7 @@ onUnmounted(() => window.removeEventListener("resize", resize));
     right: 0;
     bottom: 0;
     margin: 0;
-    padding: vars.$header-offset vars.$padding-md 0;
+    padding: vars.$header-offset 0 0;
   }
 }
 
@@ -163,7 +75,7 @@ onUnmounted(() => window.removeEventListener("resize", resize));
     flex-direction: column;
   }
   .main-text-container {
-    padding: 0 vars.$padding-md;
+    padding: vars.$padding-md vars.$padding-md 0;
   }
 }
 
@@ -174,7 +86,7 @@ onUnmounted(() => window.removeEventListener("resize", resize));
     }
   }
   .main-text-container {
-    padding: 0 vars.$padding-sm;
+    padding: vars.$padding-md vars.$padding-sm 0;
   }
 }
 </style>

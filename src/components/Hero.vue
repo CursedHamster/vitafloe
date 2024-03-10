@@ -2,9 +2,8 @@
 import { onMounted, onUnmounted } from "vue";
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import vars from "../_vars.module.scss";
 
 let mm = gsap.matchMedia();
@@ -12,7 +11,6 @@ let mm = gsap.matchMedia();
 let scene: any,
   camera: any,
   renderer: any,
-  controls: any,
   canvasContainer: any,
   canvasSize: any,
   aspect: Function;
@@ -28,100 +26,100 @@ function updateObject() {
   renderer?.setSize(canvasSize?.offsetWidth, canvasSize?.offsetHeight);
 }
 
-function addHeroAnimation() {
-  mm.add(
-    { isDesktop: `(min-width: ${vars?.breakpointMd})` },
-    ({ conditions }) => {
-      const isDesktop: any = conditions?.isDesktop;
-      const heroHeaderAnimation = gsap.timeline({
-        scrollTrigger: {
-          id: "hero_header",
-          trigger: "body",
-          start: () => window.innerHeight,
-          end: () => "+=" + window.innerHeight,
-          toggleActions: "play none none reverse",
-          invalidateOnRefresh: true,
-        },
-      });
-      heroHeaderAnimation
-        .fromTo(
-          ".header .nav",
-          { yPercent: isDesktop ? -100 : 0, autoAlpha: isDesktop ? 0 : 1 },
-          { yPercent: 0, autoAlpha: 1, duration: isDesktop ? 0.3 : 0 },
-          0
-        )
-        .fromTo(
-          ".header",
-          { background: "transparent" },
-          {
-            background: isDesktop ? vars?.background : "transparent",
-            duration: isDesktop ? 0.2 : 0,
-          }
-        );
-    }
-  );
+// function addHeroAnimation() {
+//   mm.add(
+//     { isDesktop: `(min-width: ${vars?.breakpointMd})` },
+//     ({ conditions }) => {
+//       const isDesktop: any = conditions?.isDesktop;
+//       const heroHeaderAnimation = gsap.timeline({
+//         scrollTrigger: {
+//           id: "hero_header",
+//           trigger: "body",
+//           start: () => window.innerHeight,
+//           end: () => "+=" + window.innerHeight,
+//           toggleActions: "play none none reverse",
+//           invalidateOnRefresh: true,
+//         },
+//       });
+//       heroHeaderAnimation
+//         .fromTo(
+//           ".header .nav",
+//           { yPercent: isDesktop ? -100 : 0, autoAlpha: isDesktop ? 0 : 1 },
+//           { yPercent: 0, autoAlpha: 1, duration: isDesktop ? 0.3 : 0 },
+//           0
+//         )
+//         .fromTo(
+//           ".header",
+//           { background: "transparent" },
+//           {
+//             background: isDesktop ? vars?.background : "transparent",
+//             duration: isDesktop ? 0.2 : 0,
+//           }
+//         );
+//     }
+//   );
 
-  gsap
-    .timeline({
-      scrollTrigger: {
-        trigger: ".hero-container",
-        start: "5% start",
-        end: "bottom start",
-        scrub: 1,
-      },
-    })
-    .fromTo(
-      ".hero-text-animation .extra",
-      {},
-      {
-        y: -20,
-        rotateZ: -5,
-        duration: 0.2,
-        stagger: 0.05,
-      }
-    )
-    .fromTo("#pill_container", {}, { autoAlpha: 0.2 }, 0)
-    .fromTo(camera?.position, {}, { x: 4, y: -3, z: -1 }, 0)
-    .fromTo(object?.rotation, {}, { x: -1, y: 1.5 }, 0);
+//   gsap
+//     .timeline({
+//       scrollTrigger: {
+//         trigger: ".hero-container",
+//         start: "5% start",
+//         end: "bottom start",
+//         scrub: 1,
+//       },
+//     })
+//     .fromTo(
+//       ".hero-text-animation .extra",
+//       {},
+//       {
+//         y: -20,
+//         rotateZ: -5,
+//         duration: 0.2,
+//         stagger: 0.05,
+//       }
+//     )
+//     .fromTo("#pill_container", {}, { autoAlpha: 0.2 }, 0)
+//     .fromTo(camera?.position, {}, { x: 4, y: -3, z: -1 }, 0)
+//     .fromTo(object?.rotation, {}, { x: -1, y: 1.5 }, 0);
 
-  gsap
-    .timeline({
-      scrollTrigger: {
-        trigger: ".timeline-section",
-        start: "-100% start",
-        end: "0% start",
-        scrub: 1,
-      },
-    })
-    .fromTo("#pill_container", {}, { autoAlpha: 0 }, 0)
-    .fromTo(camera?.position, {}, { x: 4, y: -2, z: 1 }, 0)
-    .fromTo(object?.rotation, {}, { x: 1, y: 2 }, 0);
-  gsap
-    .timeline({
-      scrollTrigger: {
-        trigger: ".numbers-container",
-        start: "start center",
-        end: "bottom center",
-        scrub: 1,
-      },
-    })
-    .fromTo("#pill_container", {}, { autoAlpha: 0.5 }, 0)
-    .fromTo(camera?.position, {}, { x: 3, y: -3, z: 2 }, 0)
-    .fromTo(object?.position, {}, { x: 3, y: -1, z: -1 }, 0)
-    .fromTo(object?.rotation, {}, { x: 0.5, y: 1, z: 0.5 }, 0);
-  gsap
-    .timeline({
-      scrollTrigger: {
-        trigger: "#advert",
-        start: "start center",
-        end: "bottom center",
-        scrub: 1,
-      },
-    })
-    .fromTo("#pill_container", {}, { autoAlpha: 0.2 }, 0)
-    .fromTo(object?.position, {}, { x: 2, y: -1, z: 2 }, 0)
-    .fromTo(object?.rotation, {}, { x: 0.5, y: 0.5, z: 0.5 }, 0);
-}
+//   gsap
+//     .timeline({
+//       scrollTrigger: {
+//         trigger: ".timeline-section",
+//         start: "-100% start",
+//         end: "0% start",
+//         scrub: 1,
+//       },
+//     })
+//     .fromTo("#pill_container", {}, { autoAlpha: 0 }, 0)
+//     .fromTo(camera?.position, {}, { x: 4, y: -2, z: 1 }, 0)
+//     .fromTo(object?.rotation, {}, { x: 1, y: 2 }, 0);
+//   gsap
+//     .timeline({
+//       scrollTrigger: {
+//         trigger: ".numbers-container",
+//         start: "start center",
+//         end: "bottom center",
+//         scrub: 1,
+//       },
+//     })
+//     .fromTo("#pill_container", {}, { autoAlpha: 0.5 }, 0)
+//     .fromTo(camera?.position, {}, { x: 3, y: -3, z: 2 }, 0)
+//     .fromTo(object?.position, {}, { x: 3, y: -1, z: -1 }, 0)
+//     .fromTo(object?.rotation, {}, { x: 0.5, y: 1, z: 0.5 }, 0);
+//   gsap
+//     .timeline({
+//       scrollTrigger: {
+//         trigger: "#advert",
+//         start: "start center",
+//         end: "bottom center",
+//         scrub: 1,
+//       },
+//     })
+//     .fromTo("#pill_container", {}, { autoAlpha: 0.2 }, 0)
+//     .fromTo(object?.position, {}, { x: 2, y: -1, z: 2 }, 0)
+//     .fromTo(object?.rotation, {}, { x: 0.5, y: 0.5, z: 0.5 }, 0);
+// }
 
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger);
@@ -134,9 +132,10 @@ onMounted(() => {
   const loader = new GLTFLoader();
   loader.load("/pill/scene.glb", (gltf: any) => {
     object = gltf.scene;
-    object.position.set(2, -1, 0);
+    // object.position.set(1, 0.5, -4);
+    object.rotation.set(0, -6, 1.1)
     scene.add(object);
-    addHeroAnimation();
+    // addHeroAnimation();
   });
   renderer = new THREE.WebGLRenderer({
     alpha: true,
@@ -145,10 +144,8 @@ onMounted(() => {
   });
   renderer.setSize(canvasSize?.offsetWidth, canvasSize?.offsetHeight);
   canvasSize?.appendChild(renderer?.domElement);
-  camera.position.set(3, -3, 2);
-
-  controls = new OrbitControls(camera, renderer?.domElement);
-  controls.addEventListener("change", render);
+  // camera.position.set(3, -3, 2);
+  camera.position.set(-1, 0.5, 2.5);
 
   const topLight = new THREE.DirectionalLight(0xfff1f5, 3);
   topLight.position.set(20, 20, 50);
@@ -173,7 +170,6 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener("resize", updateObject);
-  controls.removeEventListener("change", render);
 });
 </script>
 <template>
@@ -203,10 +199,10 @@ onUnmounted(() => {
   height: 100vh;
   position: relative;
   h1.text {
-    padding-top: 20vh;
+    padding-top: 15vh;
     max-width: 70vw;
     font-size: vars.$font-h1;
-    font-weight: 300;
+    font-weight: 400;
     position: relative;
     z-index: 1;
   }
@@ -214,8 +210,8 @@ onUnmounted(() => {
 #pill_container {
   display: block;
   position: fixed;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   opacity: 0.5;
   top: 0;
   left: 0;
@@ -296,6 +292,9 @@ onUnmounted(() => {
 @media screen and (max-width: vars.$breakpoint-sm) {
   .hero-container {
     padding: 0 vars.$padding-sm;
+    h1.text {
+      font-size: vars.$font-h3;
+    }
   }
 }
 </style>

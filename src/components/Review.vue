@@ -18,7 +18,6 @@ defineProps<{ reviewInfo: ReviewObjectInfo }>();
 .review-container {
   position: relative;
   flex-shrink: 0;
-  width: fit-content;
   padding: vars.$padding-sm vars.$padding-sm;
   background: vars.$background;
   border: vars.$border-width solid vars.$text;

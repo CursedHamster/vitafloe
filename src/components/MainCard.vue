@@ -21,21 +21,24 @@ defineProps<{ cardInfo: MainCardInfo }>();
 @use "../vars";
 .main-card-container {
   position: relative;
-  max-width: 100%;
-  max-height: 70vh;
-  aspect-ratio: 5/7;
+  width: 80%;
+  max-width: 500px;
+  height: 70vh;
   background: vars.$background;
   padding: vars.$padding-sm;
   border-radius: vars.$border-radius-lg;
   box-shadow: vars.$gradient-shadow;
   img {
     width: 100%;
-    aspect-ratio: 5/4;
+    height: 100%;
     object-fit: cover;
     border-radius: vars.$border-radius-lg;
   }
   .image {
     position: relative;
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
     &::after {
       content: "";
       position: absolute;
@@ -78,20 +81,50 @@ defineProps<{ cardInfo: MainCardInfo }>();
 
 @media screen and (max-width: vars.$breakpoint-sm) {
   .main-card-container {
-    max-width: 80%;
+    padding: vars.$padding-xs;
+    border-radius: vars.$border-radius-md;
+    .image {
+      border-radius: vars.$border-radius-md;
+      height: 40%;
+      img {
+        border-radius: vars.$border-radius-md;
+      }
+      &::after {
+        border-radius: vars.$border-radius-md;
+      }
+    }
+    .text {
+      padding: vars.$padding-xs vars.$padding-xxs;
+      p {
+        font-size: 1em;
+      }
+    }
+    &::before {
+      border-radius: vars.$border-radius-md;
+    }
   }
 }
 
-@media screen and (max-height: vars.$breakpoint-w-md) {
+@media screen and (max-height: vars.$breakpoint-h-md) {
   .main-card-container {
-    img {
-      aspect-ratio: 1/1;
-    }
-    div {
-      padding: vars.$padding-xs vars.$padding-xxs;
-      h3 {
-        margin-bottom: vars.$padding-xxs;
+    .image {
+      height: 40%;
+      &::after {
+        box-shadow: inset 0px -1.5rem 2rem #ffffff,
+          inset 0px -0.5rem 0.5rem #ffffff;
       }
+    }
+    .text {
+      font-size: vars.$font-sm;
+    }
+  }
+}
+
+@media screen and (max-width: vars.$breakpoint-xs) {
+  .main-card-container {
+    padding: vars.$padding-xxs;
+    .text {
+      font-size: vars.$font-xs;
       p {
         font-size: vars.$font-sm;
       }

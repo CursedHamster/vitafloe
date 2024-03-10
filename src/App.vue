@@ -43,90 +43,62 @@ function cursorSetup() {
     width: cursorRadius * 2,
     height: cursorRadius * 2,
   });
-  cursorRotation.fromTo(
-    ".cursor-text",
-    {},
-    {
-      rotation: 360,
-      duration: 5,
-      ease: "none",
-    }
-  );
+  cursorRotation.to(".cursor-text", {
+    rotation: 360,
+    duration: 5,
+    ease: "none",
+  });
 }
 
 function hideCursor() {
-  gsap.fromTo(".cursor", {}, { autoAlpha: 0, duration: 0.1 });
+  gsap.to(".cursor", { autoAlpha: 0, duration: 0.1 });
 }
 
 function showCursor() {
-  gsap.fromTo(".cursor", {}, { autoAlpha: 1, duration: 0.1 });
+  gsap.to(".cursor", { autoAlpha: 1, duration: 0.1 });
 }
 
 function enlargeCursor() {
-  gsap.fromTo(".cursor-inner", {}, { scale: 2, duration: 0.3 });
+  gsap.to(".cursor-inner", { scale: 2, duration: 0.3 });
 }
 
 function shrinkCursor() {
-  gsap.fromTo(".cursor-inner", {}, { scale: 1, duration: 0.3 });
+  gsap.to(".cursor-inner", { scale: 1, duration: 0.3 });
 }
 
 function linkCursor() {
-  gsap.fromTo(
-    ".cursor-inner",
-    {},
-    {
-      scale: 3,
-      background: vars.background,
-      outlineWidth: 5,
-      duration: 0.3,
-    }
-  );
-  gsap.fromTo(
-    ".cursor-inner i",
-    {},
-    {
-      autoAlpha: 1,
-      duration: 0.3,
-    }
-  );
-  gsap.fromTo(
-    ".cursor-text",
-    {},
-    {
-      autoAlpha: 1,
-      duration: 0.3,
-    }
-  );
+  gsap.to(".cursor-inner", {
+    scale: 3,
+    background: vars.background,
+    outlineWidth: 5,
+    duration: 0.3,
+  });
+  gsap.to(".cursor-inner i", {
+    autoAlpha: 1,
+    duration: 0.3,
+  });
+  gsap.to(".cursor-text", {
+    autoAlpha: 1,
+    duration: 0.3,
+  });
   cursorRotation?.play(0);
 }
 
 function unlinkCursor() {
-  gsap.fromTo(
-    ".cursor-inner",
-    {},
-    {
-      scale: 1,
-      background: "transparent",
-      outlineWidth: 0,
-      duration: 0.3,
-    }
-  );
-  gsap.fromTo(
-    ".cursor-inner i",
-    {},
-    {
-      autoAlpha: 0,
-      duration: 0.3,
-    }
-  );
-  gsap.fromTo(
-    ".cursor-text",
-    {},
-    {
-      autoAlpha: 0,
-      duration: 0.3,
-    }
-  );
+  gsap.to(".cursor-inner", {
+    scale: 1,
+    background: "transparent",
+    outlineWidth: 0,
+    duration: 0.3,
+  });
+  gsap.to(".cursor-inner i", {
+    autoAlpha: 0,
+    duration: 0.3,
+  });
+  gsap.to(".cursor-text", {
+    autoAlpha: 0,
+    duration: 0.3,
+  });
   cursorRotation?.pause();
 }
 

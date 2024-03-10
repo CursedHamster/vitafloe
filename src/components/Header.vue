@@ -46,42 +46,30 @@ watch(openMenu, (val) => {
 
 function addMenuToggleAnimation() {
   menuToggle
-    .fromTo(".header-background", {}, { top: 0, duration: 0.5 }, 0)
-    .fromTo(
+    .to(".header-background", { top: 0, duration: 0.5 }, 0)
+    .to(
       ".top",
-      {},
       {
-        y: iconWidth / -30,
+        y: iconWidth / -22,
         rotationZ: -45,
         transformOrigin: "right",
         duration: 0.5,
       },
       0
     )
-    .fromTo(
+    .to(
       ".bot",
-      {},
       {
-        y: iconWidth / 30,
+        y: iconWidth / 22,
         rotationZ: 45,
         transformOrigin: "right",
         duration: 0.5,
       },
       0
     )
-    .fromTo(".nav", {}, { display: "flex" }, 0)
-    .fromTo(
-      ".nav-link",
-      { y: -50, autoAlpha: 0 },
-      { y: 0, autoAlpha: 1, duration: 0.2, stagger: 0.2 },
-      0
-    )
-    .fromTo(
-      ".join-button",
-      { x: -20, autoAlpha: 0 },
-      { x: 0, autoAlpha: 1, duration: 0.2 },
-      ">"
-    );
+    .to(".nav", { display: "flex" }, 0)
+    .from(".nav-link", { y: -50, autoAlpha: 0, duration: 0.2, stagger: 0.2 }, 0)
+    .from(".join-button", { x: -20, autoAlpha: 0, duration: 0.2 }, ">");
 }
 
 onMounted(() => {
@@ -126,7 +114,16 @@ onUnmounted(() => window.removeEventListener("resize", updateWidth));
         ><p>{{ section?.title }}</p>
         <i class="ti ti-arrow-right"></i
       ></RouterLink>
-      <Button class="join-button" @click="$router.push('#join')">Join</Button>
+      <Button
+        class="join-button"
+        @click="
+          () => {
+            openMenu = false;
+            $router.push('#join');
+          }
+        "
+        >Join</Button
+      >
     </nav>
     <div class="header-background"></div>
   </header>
@@ -149,8 +146,8 @@ onUnmounted(() => window.removeEventListener("resize", updateWidth));
     justify-content: space-between;
     align-items: center;
     .logo {
-      font-size: vars.$font-h2;
-      font-weight: 400;
+      font-size: vars.$font-h3;
+      font-weight: 600;
       background: vars.$gradient-3;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -163,8 +160,8 @@ onUnmounted(() => window.removeEventListener("resize", updateWidth));
       color: vars.$text;
       padding: 0;
       svg {
-        width: 2rem;
-        height: 2rem;
+        width: 1.5rem;
+        height: 1.5rem;
         fill: vars.$text;
       }
     }
@@ -180,6 +177,7 @@ onUnmounted(() => window.removeEventListener("resize", updateWidth));
     &-link {
       i {
         display: none;
+        font-size: vars.$font-h4;
       }
     }
   }
@@ -215,7 +213,7 @@ onUnmounted(() => window.removeEventListener("resize", updateWidth));
     }
     .nav {
       display: none;
-      font-size: vars.$font-h4;
+      font-size: 1em;
       flex-direction: column;
       margin: vars.$padding-sm 0;
       padding: vars.$padding-xs vars.$padding-md;
@@ -241,9 +239,6 @@ onUnmounted(() => window.removeEventListener("resize", updateWidth));
   .header {
     .menu {
       padding: vars.$padding-xs vars.$padding-sm;
-      .logo {
-        font-size: vars.$font-h3;
-      }
     }
     .nav {
       padding: vars.$padding-xs vars.$padding-sm;

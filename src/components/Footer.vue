@@ -26,7 +26,7 @@ const socials = data?.socials;
         content?.title
       }}</RouterLink>
     </div>
-    <p class="c">©2023 vitaem., Inc. All rights reserved.</p>
+    <p class="c">©2023-2024 vitaem, Inc. All rights reserved.</p>
   </footer>
 </template>
 <style lang="scss" scoped>

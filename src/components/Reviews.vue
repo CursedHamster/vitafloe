@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-import { onMounted } from "vue";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import Review from "./Review.vue";
 import data from "../assets/data";
 const rows = 3;
@@ -17,53 +14,6 @@ for (let index = 0; index < rows; index++) {
     )
   );
 }
-
-function getScrollWidth(width: number) {
-  const containerWidth: number =
-    document.querySelector(".reviews-container")?.clientWidth || 100;
-  const rowWidth: Element | null = document.querySelector(".reviews-row");
-  return (
-    -width +
-    containerWidth -
-    (rowWidth ? parseFloat(getComputedStyle(rowWidth)?.paddingRight) : 0)
-  );
-}
-
-onMounted(() => {
-  gsap.registerPlugin(ScrollTrigger);
-
-  const reviewObjects: any[] = gsap.utils.toArray(".reviews-row");
-  const reviewsContainer: Element | null =
-    document.querySelector(".reviews-container");
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".reviews-container",
-      start: () => "bottom bottom",
-      end: () => "+=" + reviewObjects[reviewObjects?.length - 1].scrollWidth,
-      invalidateOnRefresh: true,
-      scrub: 1,
-      pin: ".numbers-and-reviews",
-    },
-  });
-
-  reviewObjects?.forEach((object) => {
-    tl?.fromTo(
-      object,
-      {},
-      {
-        x: () => getScrollWidth(object?.scrollWidth),
-      },
-      0
-    );
-  });
-
-  const resizeObserver = new ResizeObserver(() => tl.scrollTrigger?.refresh());
-
-  if (reviewsContainer) {
-    resizeObserver.observe(reviewsContainer);
-  }
-});
 </script>
 <template>
   <section id="testimonials">

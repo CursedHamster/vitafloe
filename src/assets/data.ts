@@ -84,7 +84,7 @@ export default {
   },
   numbers: [
     { title: 500, description: "wellness enthusiasts served in 1 year" },
-    { title: 5, description: "breakthrough vitamin formulations developed" },
+    { title: 5, description: "breakthrough vitamin formulations developed in 3 years" },
     {
       title: 25,
       description: "research papers published in leading scientific journals",
