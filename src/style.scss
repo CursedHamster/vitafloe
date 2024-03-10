@@ -15,8 +15,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
+  scrollbar-width: thin;
 }
 
 * {
@@ -29,8 +28,8 @@ html {
   position: fixed;
   margin: 0;
   padding: 0;
-  height: 100%;
   width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -39,6 +38,27 @@ body {
   min-height: 100vh;
   min-height: 100svh;
   overflow-x: hidden;
+  overflow-y: auto;
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 button {
@@ -214,9 +234,6 @@ input[type="checkbox"] {
 }
 
 @media screen and (max-width: vars.$breakpoint-md) {
-  body {
-    cursor: unset !important;
-  }
   button {
     cursor: pointer;
   }
