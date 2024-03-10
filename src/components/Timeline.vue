@@ -68,8 +68,8 @@ const timelineObjects = data?.timeline?.objects;
 
 .dot-object {
   position: relative;
-  width: calc(vars.$dot-size * 1.5);
-  height: calc(vars.$dot-size * 1.5);
+  width: vars.$dot-size * 1.5;
+  height: vars.$dot-size * 1.5;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -98,12 +98,13 @@ const timelineObjects = data?.timeline?.objects;
 @media screen and (max-width: vars.$breakpoint-md) {
   .timeline-container {
     padding: 0 vars.$padding-md;
+    padding-left: 0;
   }
   .dot-character {
     display: none;
   }
   .line {
-    left: vars.$padding-md;
+    left: 0;
     margin: 0;
   }
 }
@@ -111,13 +112,14 @@ const timelineObjects = data?.timeline?.objects;
 @media screen and (max-width: vars.$breakpoint-sm) {
   .timeline-container {
     padding: 0 vars.$padding-sm;
+    padding-left: 0;
   }
   .section-title {
     text-align: center;
     padding: 0 vars.$padding-sm;
   }
   .line {
-    left: vars.$padding-sm;
+    left: 0;
   }
 }
 </style>

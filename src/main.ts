@@ -11,7 +11,8 @@ import { setLoading } from "./loadingState";
 const app = createApp(App);
 
 const lenis = new Lenis({
-  duration: 1.2,
+  duration: 3,
+  syncTouch: true,
   smoothWheel: true,
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
 });
@@ -23,10 +24,6 @@ const lenis = new Lenis({
 // }
 
 // requestAnimationFrame(raf);
-
-lenis.on("scroll", (e: any) => {
-  console.log(e);
-});
 
 lenis.on("scroll", ScrollTrigger.update);
 

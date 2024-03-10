@@ -10,7 +10,7 @@ import Numbers from "./Numbers.vue";
 import Reviews from "./Reviews.vue";
 import Advert from "./Advert.vue";
 import Join from "./Join.vue";
-// import vars from "../_vars.module.scss";
+import vars from "../_vars.module.scss";
 
 // let windowHeight: number;
 let ctx: gsap.Context;
@@ -93,131 +93,148 @@ function addMainAnimation() {
   });
 }
 
-// function addTimelineAnimation() {
-//   const objects: gsap.DOMTarget[] = gsap.utils.toArray(".timeline-object");
-//   // ScrollTrigger?.create({
-//   //   id: "timeline_line",
-//   //   trigger: ".line",
-//   //   start: "top center",
-//   //   end: "bottom center",
-//   //   pin: ".dot-character",
-//   //   pinSpacing: false,
-//   //   invalidateOnRefresh: true,
-//   // });
+function addTimelineAnimation() {
+  const objects: gsap.DOMTarget[] = gsap.utils.toArray(".timeline-object");
+  // ScrollTrigger?.create({
+  //   id: "timeline_line",
+  //   trigger: ".line",
+  //   start: "top center",
+  //   end: "bottom center",
+  //   pin: ".dot-character",
+  //   pinSpacing: false,
+  //   invalidateOnRefresh: true,
+  // });
 
-//   gsap
-//     .timeline({
-//       defaults: {
-//         duration: 1,
-//       },
-//       scrollTrigger: {
-//         id: "timeline_line",
-//         trigger: ".line",
-//         start: "top center",
-//         end: "bottom center",
-//         scrub: true,
-//         invalidateOnRefresh: true,
-//       },
-//     })
-//     .fromTo(
-//       ".active-line",
-//       { scaleY: 0 },
-//       { scaleY: 1, ease: "none", duration: 1 },
-//       0
-//     )
-//     .to(
-//       ".dot-character",
-//       {
-//         y: document.querySelector(".line")?.clientHeight,
-//         ease: "none",
-//         duration: 1,
-//       },
-//       0
-//     );
+  gsap
+    .timeline({
+      defaults: {
+        duration: 1,
+      },
+      scrollTrigger: {
+        id: "timeline_line",
+        trigger: ".line",
+        start: "top center",
+        end: "bottom center",
+        scrub: 1,
+        invalidateOnRefresh: true,
+      },
+    })
+    .fromTo(
+      ".active-line",
+      { scaleY: 0 },
+      { scaleY: 1, ease: "none", duration: 1 },
+      0
+    )
+    .to(
+      ".dot-character",
+      {
+        y: () => document.querySelector(".line")?.clientHeight,
+        ease: "none",
+        duration: 1,
+      },
+      0
+    );
 
-//   // gsap.from(".active-line", {
-//   //   scrollTrigger: {
-//   //     id: "timeline_line",
-//   //     trigger: ".line",
-//   //     start: () => "top center",
-//   //     end: () => "bottom center",
-//   //     pin: ".dot-character",
-//   //     pinSpacing: false,
-//   //     scrub: 0,
-//   //     invalidateOnRefresh: true,
-//   //   },
-//   //   scaleY: 0,
-//   //   ease: "none",
-//   // });
+  // gsap.from(".active-line", {
+  //   scrollTrigger: {
+  //     id: "timeline_line",
+  //     trigger: ".line",
+  //     start: () => "top center",
+  //     end: () => "bottom center",
+  //     pin: ".dot-character",
+  //     pinSpacing: false,
+  //     scrub: 0,
+  //     invalidateOnRefresh: true,
+  //   },
+  //   scaleY: 0,
+  //   ease: "none",
+  // });
 
-//   objects?.forEach((object: gsap.DOMTarget) => {
-//     const objectSelector = gsap.utils.selector(object);
-//     gsap
-//       .timeline({
-//         scrollTrigger: {
-//           trigger: object,
-//           start: () => "top center",
-//           end: () => "bottom center",
-//           toggleActions: "play none none reset",
-//           toggleClass: "active",
-//           invalidateOnRefresh: true,
-//         },
-//       })
-//       .to(objectSelector(".dot-container"), {
-//         borderColor: vars?.primary,
-//         duration: 0.2,
-//       })
-//       .fromTo(
-//         objectSelector(".dot"),
-//         { scale: 0 },
-//         {
-//           scale: 1,
-//           duration: 0.2,
-//         },
-//         0
-//       );
+  objects?.forEach((object: gsap.DOMTarget) => {
+    const objectSelector = gsap.utils.selector(object);
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: object,
+          start: () => "top center",
+          end: () => "bottom center",
+          toggleActions: "play none none reset",
+          toggleClass: "active",
+          invalidateOnRefresh: true,
+        },
+      })
+      // .to(objectSelector(".dot-container"), {
+      //   borderColor: vars?.primary,
+      //   duration: 0.2,
+      // })
+      // .fromTo(
+      //   objectSelector(".dot"),
+      //   { scale: 0 },
+      //   {
+      //     scale: 1,
+      //     duration: 0.2,
+      //   },
+      //   0
+      // );
 
-//     gsap
-//       .timeline({
-//         scrollTrigger: {
-//           trigger: object,
-//           start: () => "top center",
-//           end: () => "center center",
-//           scrub: 1,
-//           invalidateOnRefresh: true,
-//         },
-//       })
-//       .fromTo(
-//         objectSelector(".timeline-image>img"),
-//         {
-//           autoAlpha: 0,
-//           scale: 1.1,
-//         },
-//         {
-//           autoAlpha: 1,
-//           scale: 1,
-//           duration: 0.5,
-//         }
-//       );
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: object,
+          start: () => "top center",
+          end: () => "center center",
+          scrub: 1,
+          invalidateOnRefresh: true,
+        },
+      })
+      .fromTo(
+        objectSelector(".timeline-image>img"),
+        {
+          autoAlpha: 0,
+          scale: 1.1,
+        },
+        {
+          autoAlpha: 1,
+          scale: 1,
+          duration: 0.5,
+        }
+      )
+      .to(
+        objectSelector(".dot-container"),
+        {
+          borderColor: vars?.primary,
+          duration: 0.2,
+        },
+        0
+      )
+      .fromTo(
+        objectSelector(".dot"),
+        { scale: 0 },
+        {
+          scale: 1,
+          duration: 0.2,
+        },
+        0
+      );
 
-//     // gsap.fromTo(
-//     //   objectSelector(".active-line"),
-//     //   { scaleY: 0 },
-//     //   {
-//     //     scrollTrigger: {
-//     //       trigger: object,
-//     //       start: "top center",
-//     //       end: "bottom center",
-//     //       scrub: 0.1,
-//     //       invalidateOnRefresh: true,
-//     //     },
-//     //     scaleY: 1,
-//     //     transformOrigin: "top center",
-//     //     ease: "none",
-//     //   }
-//     // );
-//   });
-// }
+    // gsap.fromTo(
+    //   objectSelector(".active-line"),
+    //   { scaleY: 0 },
+    //   {
+    //     scrollTrigger: {
+    //       trigger: object,
+    //       start: "top center",
+    //       end: "bottom center",
+    //       scrub: 0.1,
+    //       invalidateOnRefresh: true,
+    //     },
+    //     scaleY: 1,
+    //     transformOrigin: "top center",
+    //     ease: "none",
+    //   }
+    // );
+  });
+}
 
 function addNumbersAnimation() {
   gsap
@@ -338,7 +355,7 @@ onMounted(() => {
   gsap?.registerPlugin(ScrollTrigger, Flip);
   ctx = gsap.context(() => {
     addMainAnimation();
-    // addTimelineAnimation();
+    addTimelineAnimation();
     addNumbersAnimation();
     // addReviewsAnimation();
     addAdvertAnimation();

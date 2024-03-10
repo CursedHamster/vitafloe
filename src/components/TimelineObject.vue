@@ -116,7 +116,7 @@ defineProps<{ objectInfo: TimelineObjectInfo }>();
     justify-content: unset;
     flex-direction: column-reverse;
     align-items: unset;
-    padding-left: vars.$padding-sm;
+    padding-left: vars.$padding-md;
     // .active-line {
     //   margin: 0;
     // }
@@ -130,6 +130,12 @@ defineProps<{ objectInfo: TimelineObjectInfo }>();
     .timeline-text {
       flex-basis: unset;
     }
+  }
+}
+
+@media screen and (max-width: vars.$breakpoint-sm) {
+  .timeline-object {
+    padding-left: vars.$padding-sm;
   }
 }
 </style>
