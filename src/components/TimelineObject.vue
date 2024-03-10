@@ -67,6 +67,7 @@ defineProps<{ objectInfo: TimelineObjectInfo }>();
   .timeline-image {
     position: relative;
     width: 100%;
+    height: 70vh;
     height: 70svh;
     flex-basis: 45%;
     overflow: hidden;

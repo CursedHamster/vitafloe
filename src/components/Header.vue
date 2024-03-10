@@ -185,7 +185,9 @@ onUnmounted(() => window.removeEventListener("resize", updateWidth));
     display: none;
     position: fixed;
     width: 100%;
+    height: 100vh;
     height: 100svh;
+    top: -100vh;
     top: -100svh;
     left: 0;
     right: 0;
@@ -201,6 +203,7 @@ onUnmounted(() => window.removeEventListener("resize", updateWidth));
     flex-direction: column;
     background: none;
     border: none;
+    max-height: 100vh;
     max-height: 100svh;
     overflow-y: auto;
     .menu {

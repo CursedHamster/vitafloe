@@ -104,6 +104,7 @@ function submitForm() {
     position: relative;
     flex-basis: 50%;
     max-width: 50vw;
+    height: 70vh;
     height: 70svh;
   }
   .text-container {
@@ -204,6 +205,7 @@ function submitForm() {
     .phone-image-container {
       flex-basis: unset;
       width: 100%;
+      height: 60vh;
       height: 60svh;
     }
     .text-container {

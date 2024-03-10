@@ -105,6 +105,7 @@ onMounted(() => {
       content: "";
       position: absolute;
       max-width: 40vw;
+      max-height: 40vh;
       max-height: 40svh;
       aspect-ratio: 1/1;
       background: vars.$gradient-3;
