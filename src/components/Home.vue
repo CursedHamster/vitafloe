@@ -336,10 +336,10 @@ function addFooterAnimation() {
 onMounted(() => {
   gsap?.registerPlugin(ScrollTrigger, Flip);
   ctx = gsap.context(() => {
-    addMainAnimation();
-    addTimelineAnimation();
+    // addMainAnimation();
+    // addTimelineAnimation();
     addNumbersAnimation();
-    addReviewsAnimation();
+    // addReviewsAnimation();
     addAdvertAnimation();
     addJoinAnimation();
     addFooterAnimation();
