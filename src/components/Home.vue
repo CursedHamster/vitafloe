@@ -27,70 +27,70 @@ function resize() {
 //   scrollT?.enable(true, true);
 // }
 
-// function addMainAnimation() {
-//   const mainCards: any[] = gsap.utils.toArray(".main-card");
+function addMainAnimation() {
+  const mainCards: any[] = gsap.utils.toArray(".main-card");
 
-//   // resizeMain();
+  // resizeMain();
 
-//   ScrollTrigger?.create({
-//     id: "main",
-//     trigger: ".main-container",
-//     start: () => document.querySelector(".main-container")?.clientTop + " top",
-//     end: () => `+=${mainCards?.length * window.innerHeight} top`,
-//     pin: ".main-container",
-//     invalidateOnRefresh: true,
-//   });
+  ScrollTrigger?.create({
+    id: "main",
+    trigger: ".main-container",
+    start: () => document.querySelector(".main-container")?.clientTop + " top",
+    end: () => `+=${mainCards?.length * window.innerHeight} top`,
+    pin: ".main-container",
+    invalidateOnRefresh: true,
+  });
 
-//   gsap.fromTo(
-//     mainCards[0],
-//     { scale: 0 },
-//     {
-//       scale: 1,
-//       scrollTrigger: {
-//         trigger: ".main-container",
-//         start: "top bottom",
-//         end: "bottom bottom",
-//         scrub: 1,
-//       },
-//     }
-//   );
+  gsap.fromTo(
+    mainCards[0],
+    { scale: 0 },
+    {
+      scale: 1,
+      scrollTrigger: {
+        trigger: ".main-container",
+        start: "top bottom",
+        end: "bottom bottom",
+        scrub: 1,
+      },
+    }
+  );
 
-//   mainCards?.forEach((mainCard, i) => {
-//     if (i > 0) {
-//       gsap
-//         .timeline({
-//           scrollTrigger: {
-//             trigger: ".pin-spacer-main",
-//             start: () => "+=" + (i - 1) * window?.innerHeight,
-//             end: () => "+=" + window?.innerHeight,
-//             scrub: 1,
-//             invalidateOnRefresh: true,
-//           },
-//         })
-//         .fromTo(
-//           mainCard,
-//           {
-//             xPercent: 100,
-//             yPercent: -100,
-//             filter: "blur(2px)",
-//             autoAlpha: 0,
-//           },
-//           {
-//             xPercent: 2 * i,
-//             yPercent: -2 * i,
-//             filter: "blur(0px)",
-//             autoAlpha: 1,
-//             duration: 2,
-//           }
-//         );
-//       // .to(mainCards[i - 1], {
-//       //   filter: `blur(${3 / i}px)`,
-//       //   autoAlpha: 0.3 + 0.2 * i,
-//       //   duration: 0.1,
-//       // });
-//     }
-//   });
-// }
+  mainCards?.forEach((mainCard, i) => {
+    if (i > 0) {
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: ".pin-spacer-main",
+            start: () => "+=" + (i - 1) * window?.innerHeight,
+            end: () => "+=" + window?.innerHeight,
+            scrub: 1,
+            invalidateOnRefresh: true,
+          },
+        })
+        .fromTo(
+          mainCard,
+          {
+            xPercent: 100,
+            yPercent: -100,
+            // filter: "blur(2px)",
+            autoAlpha: 0,
+          },
+          {
+            xPercent: 2 * i,
+            yPercent: -2 * i,
+            // filter: "blur(0px)",
+            autoAlpha: 1,
+            duration: 2,
+          }
+        );
+      // .to(mainCards[i - 1], {
+      //   filter: `blur(${3 / i}px)`,
+      //   autoAlpha: 0.3 + 0.2 * i,
+      //   duration: 0.1,
+      // });
+    }
+  });
+}
 
 // function addTimelineAnimation() {
 //   const objects: gsap.DOMTarget[] = gsap.utils.toArray(".timeline-object");
@@ -336,7 +336,7 @@ function addFooterAnimation() {
 onMounted(() => {
   gsap?.registerPlugin(ScrollTrigger, Flip);
   ctx = gsap.context(() => {
-    // addMainAnimation();
+    addMainAnimation();
     // addTimelineAnimation();
     addNumbersAnimation();
     // addReviewsAnimation();
