@@ -4,9 +4,9 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import vars from "../_vars.module.scss";
+// import vars from "../_vars.module.scss";
 
-let mm = gsap.matchMedia();
+// let mm = gsap.matchMedia();
 
 let scene: any,
   camera: any,
