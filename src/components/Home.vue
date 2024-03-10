@@ -16,6 +16,7 @@ import Join from "./Join.vue";
 let ctx: gsap.Context;
 
 function resize() {
+  ScrollTrigger?.refresh();
   // resizeMain();
 }
 
