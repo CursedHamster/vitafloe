@@ -28,7 +28,7 @@ const cards = data?.main?.cards;
 .main-container {
   width: 100% !important;
   max-width: 100% !important;
-  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   overflow: visible;
@@ -37,8 +37,8 @@ const cards = data?.main?.cards;
 .main-cards-container {
   flex-basis: 50%;
   width: 100%;
-  min-height: 100vh;
-  max-height: 100vh;
+  min-height: 100svh;
+  max-height: 100svh;
   position: relative;
   z-index: 20;
   li {

@@ -196,10 +196,10 @@ onUnmounted(() => {
 .hero-container {
   padding: 0 vars.$padding-lg;
   width: 100%;
-  height: 100vh;
+  height: 100svh;
   position: relative;
   h1.text {
-    padding-top: 15vh;
+    padding-top: 15svh;
     max-width: 70vw;
     font-size: vars.$font-h1;
     font-weight: 400;
@@ -211,7 +211,7 @@ onUnmounted(() => {
   display: block;
   position: fixed;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   opacity: 0.5;
   top: 0;
   left: 0;

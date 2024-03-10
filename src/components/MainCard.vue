@@ -23,7 +23,7 @@ defineProps<{ cardInfo: MainCardInfo }>();
   position: relative;
   width: 80%;
   max-width: 500px;
-  height: 70vh;
+  height: 70svh;
   background: vars.$background;
   padding: vars.$padding-sm;
   border-radius: vars.$border-radius-lg;
