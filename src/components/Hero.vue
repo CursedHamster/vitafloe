@@ -187,7 +187,9 @@ onUnmounted(() => {
 @media screen and (max-width: vars.$breakpoint-md) {
   .hero-container {
     padding: 0 vars.$padding-md;
+    display: flex;
     h1.text {
+      padding-top: 30vh;
       font-size: vars.$font-h2;
     }
   }
