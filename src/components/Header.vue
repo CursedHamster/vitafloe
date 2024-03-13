@@ -39,21 +39,21 @@ watch(menuBurger, (val) => {
   }
 });
 
-function scrollHeader(e) {
+function scrollHeader(e: any) {
   e.preventDefault();
   e.stopPropagation();
   headerElement?.scrollBy({ top: e.deltaY });
   return false;
 }
 
-function touchStart(e) {
+function touchStart(e: any) {
   e.preventDefault();
   e.stopPropagation();
   touchStartY = e.touches[0]?.clientY;
   return false;
 }
 
-function touchEnd(e) {
+function touchEnd(e: any) {
   if (e.changedTouches[0]?.clientY !== touchStartY) {
     e.preventDefault();
     e.stopPropagation();
@@ -61,7 +61,7 @@ function touchEnd(e) {
   }
 }
 
-function touchMove(e) {
+function touchMove(e: any) {
   e.preventDefault();
   e.stopPropagation();
   headerElement?.scrollBy({ top: touchStartY - e.changedTouches[0]?.clientY });
