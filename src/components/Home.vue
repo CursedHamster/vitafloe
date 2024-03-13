@@ -3,7 +3,7 @@ import { onMounted, onUnmounted } from "vue";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Flip } from "gsap/Flip";
-// import Hero from "./Hero.vue";
+import Hero from "./Hero.vue";
 import Main from "./Main.vue";
 import Timeline from "./Timeline.vue";
 import Numbers from "./Numbers.vue";
@@ -12,26 +12,113 @@ import Advert from "./Advert.vue";
 import Join from "./Join.vue";
 import vars from "../_vars.module.scss";
 
-// let windowHeight: number;
+let mm = gsap.matchMedia();
 let ctx: gsap.Context;
 
 function resize() {
-  ScrollTrigger?.refresh();
-  // resizeMain();
+  ScrollTrigger.refresh();
 }
 
-// function resizeMain() {
-//   windowHeight = window?.innerHeight;
-//   const scrollT = ScrollTrigger?.getById("main");
-//   scrollT?.disable(true, true);
-//   scrollT?.refresh();
-//   scrollT?.enable(true, true);
-// }
+function addHeaderAnimation() {
+  mm.add(
+    { isDesktop: `(min-width: ${vars?.breakpointMd})` },
+    ({ conditions }) => {
+      const isDesktop: any = conditions?.isDesktop;
+      gsap
+        .timeline({
+          scrollTrigger: {
+            id: "hero_header",
+            trigger: "body",
+            start: () => window.innerHeight,
+            end: () => "+=" + window.innerHeight,
+            toggleActions: "play none none reverse",
+          },
+        })
+        .from(
+          ".header .nav",
+          {
+            yPercent: isDesktop ? -100 : 0,
+            autoAlpha: isDesktop ? 0 : 1,
+            duration: isDesktop ? 0.3 : 0,
+          },
+          0
+        )
+        .from(".header", {
+          background: "transparent",
+          borderBottomColor: "transparent",
+          // boxShadow: "none",
+          duration: isDesktop ? 0.2 : 0,
+        });
+    }
+  );
+}
+
+function addHeroAnimation(object: any) {
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: ".hero-container",
+        start: "5% start",
+        end: "bottom start",
+        scrub: 1,
+      },
+    })
+    .fromTo(
+      ".hero-text-animation .extra",
+      {},
+      {
+        y: -20,
+        rotateZ: -5,
+        duration: 0.2,
+        stagger: 0.05,
+      }
+    )
+    .fromTo("#pill_container", {}, { autoAlpha: 0.2 }, 0)
+    .fromTo(object?.position, {}, { x: -3, y: 1 }, 0)
+    .fromTo(object?.rotation, {}, { z: -0.8}, 0);
+
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: ".timeline-section",
+        start: "-100% start",
+        end: "0% start",
+        scrub: 1,
+      },
+    })
+    .fromTo("#pill_container", {}, { autoAlpha: 0 }, 0)
+    .fromTo(object?.position, {}, { x: 0, z: 1 }, 0)
+    // .fromTo(object?.rotation, {}, { x: -2, z: -2 }, 0);
+
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: ".numbers-container",
+        start: "start center",
+        end: "bottom center",
+        scrub: 1,
+      },
+    })
+    .fromTo("#pill_container", {}, { autoAlpha: 0.5 }, 0)
+    .fromTo(object?.position, {}, { y: 0, z: 0 }, 0)
+    .fromTo(object?.rotation, {}, { x: 2, z: -3 }, 0);
+
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: "#advert",
+        start: "start center",
+        end: "bottom center",
+        scrub: 1,
+      },
+    })
+    .fromTo("#pill_container", {}, { autoAlpha: 0.2 }, 0)
+    .fromTo(object?.position, {}, { x: -3, y: 1 }, 0)
+    .fromTo(object?.rotation, {}, { y: -5.5 }, 0);
+}
 
 function addMainAnimation() {
   const mainCards: any[] = gsap.utils.toArray(".main-card");
-
-  // resizeMain();
 
   ScrollTrigger?.create({
     id: "main",
@@ -95,15 +182,6 @@ function addMainAnimation() {
 
 function addTimelineAnimation() {
   const objects: gsap.DOMTarget[] = gsap.utils.toArray(".timeline-object");
-  // ScrollTrigger?.create({
-  //   id: "timeline_line",
-  //   trigger: ".line",
-  //   start: "top center",
-  //   end: "bottom center",
-  //   pin: ".dot-character",
-  //   pinSpacing: false,
-  //   invalidateOnRefresh: true,
-  // });
 
   gsap
     .timeline({
@@ -137,21 +215,6 @@ function addTimelineAnimation() {
       0
     );
 
-  // gsap.from(".active-line", {
-  //   scrollTrigger: {
-  //     id: "timeline_line",
-  //     trigger: ".line",
-  //     start: () => "top center",
-  //     end: () => "bottom center",
-  //     pin: ".dot-character",
-  //     pinSpacing: false,
-  //     scrub: 0,
-  //     invalidateOnRefresh: true,
-  //   },
-  //   scaleY: 0,
-  //   ease: "none",
-  // });
-
   objects?.forEach((object: gsap.DOMTarget) => {
     const objectSelector = gsap.utils.selector(object);
     gsap.timeline({
@@ -159,24 +222,10 @@ function addTimelineAnimation() {
         trigger: object,
         start: () => "top center",
         end: () => "bottom center",
-        toggleActions: "play none none reset",
         toggleClass: "active",
         invalidateOnRefresh: true,
       },
     });
-    // .to(objectSelector(".dot-container"), {
-    //   borderColor: vars?.primary,
-    //   duration: 0.2,
-    // })
-    // .fromTo(
-    //   objectSelector(".dot"),
-    //   { scale: 0 },
-    //   {
-    //     scale: 1,
-    //     duration: 0.2,
-    //   },
-    //   0
-    // );
 
     gsap
       .timeline({
@@ -217,23 +266,6 @@ function addTimelineAnimation() {
         },
         0
       );
-
-    // gsap.fromTo(
-    //   objectSelector(".active-line"),
-    //   { scaleY: 0 },
-    //   {
-    //     scrollTrigger: {
-    //       trigger: object,
-    //       start: "top center",
-    //       end: "bottom center",
-    //       scrub: 0.1,
-    //       invalidateOnRefresh: true,
-    //     },
-    //     scaleY: 1,
-    //     transformOrigin: "top center",
-    //     ease: "none",
-    //   }
-    // );
   });
 }
 
@@ -256,49 +288,50 @@ function addNumbersAnimation() {
     });
 }
 
-// function addReviewsAnimation() {
-//   const reviewObjects: any[] = gsap.utils.toArray(".reviews-row");
-//   const reviewsContainer: Element | null =
-//     document.querySelector(".reviews-container");
+function addReviewsAnimation() {
+  const reviewObjects: any[] = gsap.utils.toArray(".reviews-row");
+  const reviewsContainer: Element | null =
+    document.querySelector(".reviews-container");
 
-//   const tl = gsap.timeline({
-//     scrollTrigger: {
-//       trigger: ".reviews-container",
-//       start: () => "bottom bottom",
-//       end: () => "+=" + reviewObjects[reviewObjects?.length - 1].scrollWidth,
-//       invalidateOnRefresh: true,
-//       scrub: 1,
-//       pin: ".numbers-and-reviews",
-//     },
-//   });
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".reviews-container",
+      start: () => "bottom bottom",
+      end: () => "+=" + reviewObjects[reviewObjects?.length - 1].scrollWidth,
+      invalidateOnRefresh: true,
+      scrub: 1,
+      pin: ".numbers-and-reviews",
+      // markers: true,
+    },
+  });
 
-//   reviewObjects?.forEach((object) => {
-//     tl?.to(
-//       object,
-//       {
-//         x: () => getScrollWidth(object?.scrollWidth),
-//       },
-//       0
-//     );
-//   });
+  reviewObjects?.forEach((object) => {
+    tl?.to(
+      object,
+      {
+        x: () => getScrollWidth(object?.scrollWidth),
+      },
+      0
+    );
+  });
 
-//   const resizeObserver = new ResizeObserver(() => tl?.scrollTrigger?.refresh());
+  const resizeObserver = new ResizeObserver(() => tl?.scrollTrigger?.refresh());
 
-//   if (reviewsContainer) {
-//     resizeObserver.observe(reviewsContainer);
-//   }
+  if (reviewsContainer) {
+    resizeObserver.observe(reviewsContainer);
+  }
 
-//   function getScrollWidth(width: number) {
-//     const containerWidth: number =
-//       document.querySelector(".reviews-container")?.clientWidth || 100;
-//     const rowWidth: Element | null = document.querySelector(".reviews-row");
-//     return (
-//       -width +
-//       containerWidth -
-//       (rowWidth ? parseFloat(getComputedStyle(rowWidth)?.paddingRight) : 0)
-//     );
-//   }
-// }
+  function getScrollWidth(width: number) {
+    const containerWidth: number =
+      document.querySelector(".reviews-container")?.clientWidth || 100;
+    const rowWidth: Element | null = document.querySelector(".reviews-row");
+    return (
+      -width +
+      containerWidth -
+      (rowWidth ? parseFloat(getComputedStyle(rowWidth)?.paddingRight) : 0)
+    );
+  }
+}
 
 function addAdvertAnimation() {
   gsap.set(".phone", { rotate: -10 });
@@ -354,11 +387,13 @@ function addFooterAnimation() {
 
 onMounted(() => {
   gsap?.registerPlugin(ScrollTrigger, Flip);
+  ScrollTrigger.normalizeScroll(true);
   ctx = gsap.context(() => {
+    addHeaderAnimation();
     addMainAnimation();
     addTimelineAnimation();
     addNumbersAnimation();
-    // addReviewsAnimation();
+    addReviewsAnimation();
     addAdvertAnimation();
     addJoinAnimation();
     addFooterAnimation();
@@ -373,7 +408,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <!-- <Hero /> -->
+  <Hero @add-hero-animation="addHeroAnimation" />
   <Main />
   <Timeline />
   <div class="full-height numbers-and-reviews">

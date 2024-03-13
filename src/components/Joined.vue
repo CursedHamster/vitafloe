@@ -34,33 +34,6 @@ onMounted(() => {
     { autoAlpha: 1, yPercent: 0, duration: 0.7, ease: "back.inOut" },
     "<"
   );
-
-  const sparkleAnimation = gsap.timeline({ repeat: -1 });
-  sparkleAnimation
-    .fromTo(
-      [".sparkle--1", ".sparkle--3", ".sparkle--5"],
-      { opacity: 0, scale: 0 },
-      { opacity: 1, scale: 1, duration: 0.5, stagger: 0.2, delay: 1 },
-      0
-    )
-    .fromTo(
-      [".sparkle--1", ".sparkle--3", ".sparkle--5"],
-      { opacity: 1, scale: 1 },
-      { opacity: 0, scale: 0, duration: 0.5, stagger: 0.2, delay: 0.5 },
-      ">"
-    )
-    .fromTo(
-      [".sparkle--2", ".sparkle--4"],
-      { opacity: 1, scale: 1 },
-      { opacity: 0, scale: 0, duration: 0.5, delay: 0.5 },
-      0
-    )
-    .fromTo(
-      [".sparkle--2", ".sparkle--4"],
-      { opacity: 0, scale: 0 },
-      { opacity: 1, scale: 1, duration: 0.3 },
-      ">"
-    );
 });
 </script>
 <template>
@@ -70,7 +43,7 @@ onMounted(() => {
       <div class="joined-text">
         <div>
           <h1 class="section-title joined-title">
-            Thank you for <span class="extra">joining</span>
+            Thank you for <span class="extra">joining!</span>
           </h1>
           <p>
             Get ready to embark on a journey to optimal health. We're thrilled
@@ -79,12 +52,7 @@ onMounted(() => {
             our priority!
           </p>
         </div>
-        <Button button-size="lg" @click="changeJoined">Close</Button>
-        <div class="sparkle sparkle--1">✦</div>
-        <div class="sparkle sparkle--2">✦</div>
-        <div class="sparkle sparkle--3">✦</div>
-        <div class="sparkle sparkle--4">✦</div>
-        <div class="sparkle sparkle--5">✦</div>
+        <Button @click="changeJoined">Close</Button>
       </div>
     </div>
   </div>
@@ -129,6 +97,7 @@ onMounted(() => {
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     text-align: center;
     gap: vars.$gap-lg;
@@ -165,33 +134,6 @@ onMounted(() => {
       box-shadow: vars.$gradient-shadow;
       z-index: -1;
     }
-    .sparkle {
-      &--1 {
-        font-size: 4em;
-        top: 5%;
-        left: 10%;
-      }
-      &--2 {
-        font-size: 3em;
-        top: -10%;
-        left: 10%;
-      }
-      &--3 {
-        font-size: 6em;
-        top: -5%;
-        left: 1%;
-      }
-      &--4 {
-        font-size: 3em;
-        top: 4%;
-        right: 8%;
-      }
-      &--5 {
-        font-size: 6em;
-        top: -6%;
-        right: 1%;
-      }
-    }
   }
 }
 
@@ -203,23 +145,6 @@ onMounted(() => {
         padding: vars.$padding-md;
         .joined-title {
           font-size: vars.$font-h2;
-        }
-        .sparkle {
-          &--1 {
-            font-size: 2em;
-          }
-          &--2 {
-            font-size: 1em;
-          }
-          &--3 {
-            font-size: 3em;
-          }
-          &--4 {
-            font-size: 1em;
-          }
-          &--5 {
-            font-size: 3em;
-          }
         }
       }
     }
@@ -233,6 +158,10 @@ onMounted(() => {
       .joined-text {
         padding: vars.$padding-md vars.$padding-sm;
         border-radius: 0;
+        border-top: vars.$border-width solid vars.$transparent-text;
+        border-bottom: vars.$border-width solid vars.$transparent-text;
+        overflow-y: auto;
+        max-height: 100%;
         &::before {
           display: none;
         }

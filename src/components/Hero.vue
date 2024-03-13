@@ -4,10 +4,8 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-// import vars from "../_vars.module.scss";
 
-// let mm = gsap.matchMedia();
-
+const emit = defineEmits(["add-hero-animation"]);
 let scene: any,
   camera: any,
   renderer: any,
@@ -26,101 +24,6 @@ function updateObject() {
   renderer?.setSize(canvasSize?.offsetWidth, canvasSize?.offsetHeight);
 }
 
-// function addHeroAnimation() {
-//   mm.add(
-//     { isDesktop: `(min-width: ${vars?.breakpointMd})` },
-//     ({ conditions }) => {
-//       const isDesktop: any = conditions?.isDesktop;
-//       const heroHeaderAnimation = gsap.timeline({
-//         scrollTrigger: {
-//           id: "hero_header",
-//           trigger: "body",
-//           start: () => window.innerHeight,
-//           end: () => "+=" + window.innerHeight,
-//           toggleActions: "play none none reverse",
-//           invalidateOnRefresh: true,
-//         },
-//       });
-//       heroHeaderAnimation
-//         .fromTo(
-//           ".header .nav",
-//           { yPercent: isDesktop ? -100 : 0, autoAlpha: isDesktop ? 0 : 1 },
-//           { yPercent: 0, autoAlpha: 1, duration: isDesktop ? 0.3 : 0 },
-//           0
-//         )
-//         .fromTo(
-//           ".header",
-//           { background: "transparent" },
-//           {
-//             background: isDesktop ? vars?.background : "transparent",
-//             duration: isDesktop ? 0.2 : 0,
-//           }
-//         );
-//     }
-//   );
-
-//   gsap
-//     .timeline({
-//       scrollTrigger: {
-//         trigger: ".hero-container",
-//         start: "5% start",
-//         end: "bottom start",
-//         scrub: 1,
-//       },
-//     })
-//     .fromTo(
-//       ".hero-text-animation .extra",
-//       {},
-//       {
-//         y: -20,
-//         rotateZ: -5,
-//         duration: 0.2,
-//         stagger: 0.05,
-//       }
-//     )
-//     .fromTo("#pill_container", {}, { autoAlpha: 0.2 }, 0)
-//     .fromTo(camera?.position, {}, { x: 4, y: -3, z: -1 }, 0)
-//     .fromTo(object?.rotation, {}, { x: -1, y: 1.5 }, 0);
-
-//   gsap
-//     .timeline({
-//       scrollTrigger: {
-//         trigger: ".timeline-section",
-//         start: "-100% start",
-//         end: "0% start",
-//         scrub: 1,
-//       },
-//     })
-//     .fromTo("#pill_container", {}, { autoAlpha: 0 }, 0)
-//     .fromTo(camera?.position, {}, { x: 4, y: -2, z: 1 }, 0)
-//     .fromTo(object?.rotation, {}, { x: 1, y: 2 }, 0);
-//   gsap
-//     .timeline({
-//       scrollTrigger: {
-//         trigger: ".numbers-container",
-//         start: "start center",
-//         end: "bottom center",
-//         scrub: 1,
-//       },
-//     })
-//     .fromTo("#pill_container", {}, { autoAlpha: 0.5 }, 0)
-//     .fromTo(camera?.position, {}, { x: 3, y: -3, z: 2 }, 0)
-//     .fromTo(object?.position, {}, { x: 3, y: -1, z: -1 }, 0)
-//     .fromTo(object?.rotation, {}, { x: 0.5, y: 1, z: 0.5 }, 0);
-//   gsap
-//     .timeline({
-//       scrollTrigger: {
-//         trigger: "#advert",
-//         start: "start center",
-//         end: "bottom center",
-//         scrub: 1,
-//       },
-//     })
-//     .fromTo("#pill_container", {}, { autoAlpha: 0.2 }, 0)
-//     .fromTo(object?.position, {}, { x: 2, y: -1, z: 2 }, 0)
-//     .fromTo(object?.rotation, {}, { x: 0.5, y: 0.5, z: 0.5 }, 0);
-// }
-
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger);
   canvasContainer = document.getElementById("pill_canvas");
@@ -132,10 +35,9 @@ onMounted(() => {
   const loader = new GLTFLoader();
   loader.load("/pill/scene.glb", (gltf: any) => {
     object = gltf.scene;
-    // object.position.set(1, 0.5, -4);
-    object.rotation.set(0, -6, 1.1)
+    object.rotation.set(0, -6, 1.1);
     scene.add(object);
-    // addHeroAnimation();
+    emit("add-hero-animation", object);
   });
   renderer = new THREE.WebGLRenderer({
     alpha: true,
@@ -144,7 +46,6 @@ onMounted(() => {
   });
   renderer.setSize(canvasSize?.offsetWidth, canvasSize?.offsetHeight);
   canvasSize?.appendChild(renderer?.domElement);
-  // camera.position.set(3, -3, 2);
   camera.position.set(-1, 0.5, 2.5);
 
   const topLight = new THREE.DirectionalLight(0xfff1f5, 3);
@@ -200,8 +101,8 @@ onUnmounted(() => {
   height: 100svh;
   position: relative;
   h1.text {
-    padding-top: 15vh;
-    padding-top: 15svh;
+    padding-top: 20vh;
+    padding-top: 20svh;
     max-width: 70vw;
     font-size: vars.$font-h1;
     font-weight: 400;
@@ -273,7 +174,7 @@ onUnmounted(() => {
       }
     }
     &:hover {
-      gap: calc(vars.$gap-md + vars.$gap-sm);
+      gap: (vars.$gap-md + vars.$gap-sm);
       p::after {
         height: 100%;
         scale: 1.5;

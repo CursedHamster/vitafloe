@@ -205,8 +205,6 @@ function submitForm() {
     .phone-image-container {
       flex-basis: unset;
       width: 100%;
-      height: 60vh;
-      height: 60svh;
     }
     .text-container {
       flex-basis: unset;

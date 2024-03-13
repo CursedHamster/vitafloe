@@ -38,6 +38,8 @@ const socials = data?.socials;
   flex-direction: column;
   gap: vars.$gap-lg;
   padding: vars.$padding-sm vars.$padding-lg;
+  // border-top: vars.$border-width solid vars.$text;
+  border-top: vars.$border-width solid vars.$transparent-text;
   .title-container {
     width: 100%;
     display: flex;
@@ -103,7 +105,6 @@ const socials = data?.socials;
 @media screen and (max-width: vars.$breakpoint-md) {
   .footer {
     padding: vars.$padding-sm vars.$padding-md;
-    border: none;
   }
 }
 

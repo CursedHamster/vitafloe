@@ -94,7 +94,7 @@ onMounted(() => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 vars.$padding-sm;
+  padding: 0 vars.$padding-lg;
   gap: vars.$gap-lg;
   background: vars.$background;
   z-index: 1500;
@@ -120,11 +120,27 @@ onMounted(() => {
   }
   .loading-progress {
     position: absolute;
-    right: vars.$padding-sm;
+    right: vars.$padding-lg;
     bottom: vars.$padding-sm;
   }
   .loading-progress-number {
     font-weight: 500;
+  }
+}
+
+@media screen and (max-width: vars.$breakpoint-md) {
+  .loading-container {
+    .loading-progress {
+      right: vars.$padding-md;
+    }
+  }
+}
+
+@media screen and (max-width: vars.$breakpoint-sm) {
+  .loading-container {
+    .loading-progress {
+      right: vars.$padding-sm;
+    }
   }
 }
 </style>

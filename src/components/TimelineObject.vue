@@ -9,7 +9,6 @@ defineProps<{ objectInfo: TimelineObjectInfo }>();
 </script>
 <template>
   <div class="timeline-object">
-    <!-- <div class="active-line"></div> -->
     <div class="dot-container">
       <div class="dot"></div>
     </div>
@@ -33,17 +32,6 @@ defineProps<{ objectInfo: TimelineObjectInfo }>();
   padding: 0 0 vars.$padding-md;
   gap: vars.$gap-lg;
   width: 100%;
-  // .active-line {
-  //   width: vars.$line-width;
-  //   height: 100%;
-  //   position: absolute;
-  //   top: vars.$padding-xxs;
-  //   left: 0;
-  //   right: 0;
-  //   margin: 0 auto;
-  //   background: vars.$primary;
-  //   border-radius: vars.$line-width;
-  // }
   .dot-container {
     width: vars.$dot-size;
     height: vars.$dot-size;
@@ -117,15 +105,14 @@ defineProps<{ objectInfo: TimelineObjectInfo }>();
     flex-direction: column-reverse;
     align-items: unset;
     padding-left: vars.$padding-md;
-    // .active-line {
-    //   margin: 0;
-    // }
     .dot-container {
       left: calc(vars.$dot-size / -2 + vars.$line-width / 2);
       margin: 0;
     }
     .timeline-image {
       flex-basis: unset;
+      height: 50vh;
+      height: 50svh;
     }
     .timeline-text {
       flex-basis: unset;

@@ -33,7 +33,7 @@ for (let index = 0; index < rows; index++) {
   padding: vars.$padding-md 0;
   .section-title {
     text-align: center;
-    padding: 0 vars.$padding-lg;
+    // padding: 0 vars.$padding-lg;
   }
 }
 .reviews-container {
@@ -52,19 +52,29 @@ for (let index = 0; index < rows; index++) {
   padding: 0 vars.$padding-sm;
 }
 
-@media screen and (max-width: vars.$breakpoint-md) {
-  #testimonials {
-    .section-title {
-      padding: 0 vars.$padding-md;
-    }
-  }
-}
+// @media screen and (max-width: vars.$breakpoint-md) {
+//   #testimonials {
+//     .section-title {
+//       padding: 0 vars.$padding-md;
+//     }
+//   }
+// }
 
-@media screen and (max-width: vars.$breakpoint-sm) {
-  #testimonials {
-    .section-title {
-      padding: 0 vars.$padding-sm;
-    }
+// @media screen and (max-width: vars.$breakpoint-sm) {
+//   #testimonials {
+//     .section-title {
+//       padding: 0 vars.$padding-sm;
+//     }
+//   }
+// }
+
+@media screen and (max-height: vars.$breakpoint-h-md) {
+  .reviews-container {
+    gap: vars.$gap-md;
+  }
+
+  .reviews-row {
+    gap: vars.$gap-md;
   }
 }
 </style>

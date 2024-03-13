@@ -35,8 +35,8 @@ const pros = data?.advert?.pros;
   width: 100%;
   flex-basis: 50%;
   max-width: 50vw;
-  min-height: 70vh;
-  min-height: 70svh;
+  height: 70vh;
+  height: 70svh;
   z-index: 10;
   .phone {
     left: unset;
@@ -97,8 +97,6 @@ const pros = data?.advert?.pros;
   }
   .phone-image {
     flex-basis: unset;
-    min-height: 60vh;
-    min-height: 60svh;
     max-width: 100%;
     .phone {
       left: 0;

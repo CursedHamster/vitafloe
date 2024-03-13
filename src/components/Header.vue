@@ -9,17 +9,18 @@ import vars from "../_vars.module.scss";
 const sections = data?.sections;
 const openMenu = ref(false);
 const menuBurger = ref(isMenuBurger());
-var menuToggle = gsap.timeline({ paused: true, reversed: true });
-var iconWidth: number;
-const html: HTMLHtmlElement | null = document.querySelector("html");
+let headerElement: HTMLElement | null;
+let touchStartY: number;
+var menuToggle = gsap.timeline({
+  paused: true,
+  reversed: true,
+});
 
 function isMenuBurger() {
   return window.innerWidth <= parseFloat(vars.breakpointMd);
 }
 
 function updateWidth() {
-  const iconMenu = document.querySelector(".icon-menu")?.clientHeight;
-  iconWidth = iconMenu ? iconMenu : 0;
   menuBurger.value = isMenuBurger();
 }
 
@@ -28,16 +29,64 @@ watch(menuBurger, (val) => {
     addMenuToggleAnimation();
   } else if (!val && menuToggle.getChildren()?.length !== 0) {
     menuToggle.clear();
-    gsap.set(".header-background, .nav, .nav-link, .join-button, .top, .bot", {
-      clearProps: "all",
-    });
+    gsap.set(
+      ".header-background, .menu, .nav, .nav-link, .join-button, .top, .bot",
+      {
+        clearProps: "all",
+      }
+    );
     openMenu.value = false;
   }
 });
 
+function scrollHeader(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  headerElement?.scrollBy({ top: e.deltaY });
+  return false;
+}
+
+function touchStart(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  touchStartY = e.touches[0]?.clientY;
+  return false;
+}
+
+function touchEnd(e) {
+  if (e.changedTouches[0]?.clientY !== touchStartY) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }
+}
+
+function touchMove(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  headerElement?.scrollBy({ top: touchStartY - e.changedTouches[0]?.clientY });
+  return false;
+}
+
 watch(openMenu, (val) => {
-  if (html) {
-    html.style.overflowY = val ? "hidden" : "auto";
+  if (val) {
+    document.documentElement.style.overflowY = "hidden";
+    headerElement?.addEventListener("wheel", scrollHeader, { passive: false });
+    headerElement?.addEventListener("touchstart", touchStart, {
+      passive: false,
+    });
+    headerElement?.addEventListener("touchend", touchEnd, {
+      passive: false,
+    });
+    headerElement?.addEventListener("touchmove", touchMove, {
+      passive: false,
+    });
+  } else {
+    document.documentElement.style.overflowY = "auto";
+    headerElement?.removeEventListener("wheel", scrollHeader);
+    headerElement?.removeEventListener("touchstart", touchStart);
+    headerElement?.removeEventListener("touchend", touchEnd);
+    headerElement?.removeEventListener("touchmove", touchMove);
   }
   if (menuBurger.value) {
     menuToggle?.reversed() ? menuToggle?.restart() : menuToggle?.reverse();
@@ -46,13 +95,27 @@ watch(openMenu, (val) => {
 
 function addMenuToggleAnimation() {
   menuToggle
-    .to(".header-background", { top: 0, duration: 0.5 }, 0)
+    .to(
+      ".menu",
+      {
+        borderBottomColor: "transparent",
+        // boxShadow: "none",
+        duration: 0.2,
+      },
+      0
+    )
+    .fromTo(
+      ".header-background",
+      { top: "-100vh" },
+      { top: 0, duration: 0.5 },
+      0
+    )
     .to(
       ".top",
       {
-        y: iconWidth / -22,
+        y: 4,
         rotationZ: -45,
-        transformOrigin: "right",
+        transformOrigin: "center center",
         duration: 0.5,
       },
       0
@@ -60,9 +123,9 @@ function addMenuToggleAnimation() {
     .to(
       ".bot",
       {
-        y: iconWidth / 22,
+        y: -4,
         rotationZ: 45,
-        transformOrigin: "right",
+        transformOrigin: "center center",
         duration: 0.5,
       },
       0
@@ -74,6 +137,7 @@ function addMenuToggleAnimation() {
 
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger);
+  headerElement = document.querySelector(".header");
   updateWidth();
   if (menuBurger?.value) {
     addMenuToggleAnimation();
@@ -81,7 +145,13 @@ onMounted(() => {
   window.addEventListener("resize", updateWidth);
 });
 
-onUnmounted(() => window.removeEventListener("resize", updateWidth));
+onUnmounted(() => {
+  window.removeEventListener("resize", updateWidth);
+  headerElement?.removeEventListener("wheel", scrollHeader);
+  headerElement?.removeEventListener("touchstart", touchStart);
+  headerElement?.removeEventListener("touchend", touchEnd);
+  headerElement?.removeEventListener("touchmove", touchMove);
+});
 </script>
 <template>
   <header class="header" :class="{ 'full-size': !menuBurger }">
@@ -140,6 +210,9 @@ onUnmounted(() => window.removeEventListener("resize", updateWidth));
   justify-content: space-between;
   padding: vars.$padding-xs vars.$padding-lg;
   background: vars.$background;
+  // border-bottom: vars.$border-width solid vars.$text;
+  // box-shadow: vars.$light-shadow;
+  border-bottom: vars.$border-width solid vars.$transparent-text;
   z-index: 1000;
   .menu {
     display: flex;
@@ -147,7 +220,7 @@ onUnmounted(() => window.removeEventListener("resize", updateWidth));
     align-items: center;
     .logo {
       font-size: vars.$font-h3;
-      font-weight: 600;
+      font-weight: 500;
       background: vars.$gradient-3;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -205,16 +278,20 @@ onUnmounted(() => window.removeEventListener("resize", updateWidth));
     border: none;
     max-height: 100vh;
     max-height: 100svh;
-    overflow-y: auto;
+    overflow-y: hidden;
     .menu {
       width: 100%;
       background: vars.$background;
       padding: vars.$padding-xs vars.$padding-md;
+      // border-bottom: vars.$border-width solid vars.$text;
+      // box-shadow: vars.$light-shadow;
+      border-bottom: vars.$border-width solid vars.$transparent-text;
       .btn-icon {
         display: block;
       }
     }
     .nav {
+      width: 100%;
       display: none;
       font-size: 1em;
       flex-direction: column;

@@ -5,8 +5,10 @@ $secondary: rgb(235, 235, 235);
 $accent: rgb(251, 133, 167);
 $text-light: rgb(130, 140, 158);
 $red: rgb(208, 48, 48);
+$transparent-text: rgba(0, 0, 0, 0.05);
+$light-shadow: 0 2px 5px $transparent-text;
 $gradient-shadow: inset 0px -2px 5px rgba(103, 156, 242, 0.25),
-inset 0px 5px 10px rgba(251, 133, 167, 0.06);
+  inset 0px 5px 10px rgba(251, 133, 167, 0.06);
 
 $gradient-1: linear-gradient(180deg, $primary 0%, $accent 70%);
 $gradient-2: linear-gradient(0deg, $primary 0%, $accent 70%);
@@ -33,6 +35,7 @@ $padding-xs: 1rem;
 $padding-sm: 1.5rem;
 $padding-md: 3rem;
 $padding-lg: 7rem;
+$padding-xl: 10rem;
 
 $border-width: 2px;
 $border-radius-xs: 0.1rem;
