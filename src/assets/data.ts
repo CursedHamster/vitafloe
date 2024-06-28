@@ -60,7 +60,7 @@ export default {
         year: "2021",
         title: "A Vision Takes Root",
         description:
-          "In 2021, Vitaem embarked on its journey in nutritional science, forming crucial partnerships and launching with a commitment to pioneering advancements in formulations. Fueled by the vision of enhancing overall well-being, our team at Vitaem began laying the groundwork for a future where cutting-edge research shapes the landscape of nutritional solutions.",
+          "In 2021, Vitafloe embarked on its journey in nutritional science, forming crucial partnerships and launching with a commitment to pioneering advancements in formulations. Fueled by the vision of enhancing overall well-being, our team at Vitafloe began laying the groundwork for a future where cutting-edge research shapes the landscape of nutritional solutions.",
         imgUrl:
           "https://images.unsplash.com/photo-1566216867955-5b2e8c77e45f?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       },
@@ -68,7 +68,7 @@ export default {
         year: "2022",
         title: "Crafting a Wellness Breakthrough",
         description:
-          "The year 2022 witnessed the initiation of an extensive research and development phase at Vitaem to create a groundbreaking vitamin formula, with collaborations ensuring alignment with the latest scientific discoveries. As our team delved into the intricacies of nutritional science, we remained dedicated to crafting a wellness breakthrough that not only met but exceeded the expectations of those seeking optimal health.",
+          "The year 2022 witnessed the initiation of an extensive research and development phase at Vitafloe to create a groundbreaking vitamin formula, with collaborations ensuring alignment with the latest scientific discoveries. As our team delved into the intricacies of nutritional science, we remained dedicated to crafting a wellness breakthrough that not only met but exceeded the expectations of those seeking optimal health.",
         imgUrl:
           "https://images.unsplash.com/photo-1616458964840-5108e4d3adb3?q=80&w=2672&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       },
@@ -76,7 +76,7 @@ export default {
         year: "2023",
         title: "Testing Triumphs and Pre-Order Launch",
         description:
-          "In 2023, comprehensive testing protocols confirmed the quality, purity, and effectiveness of Vitaem's exclusive vitamin formulations. As the results of meticulous testing triumphed, we celebrated the validation of our commitment to excellence. In November, an official announcement from Vitaem declared them ready for pre-order, marking a new era of wellness through science-backed nutrition and inviting individuals to join us on this exciting journey toward a healthier future.",
+          "In 2023, comprehensive testing protocols confirmed the quality, purity, and effectiveness of Vitafloe's exclusive vitamin formulations. As the results of meticulous testing triumphed, we celebrated the validation of our commitment to excellence. In November, an official announcement from Vitafloe declared them ready for pre-order, marking a new era of wellness through science-backed nutrition and inviting individuals to join us on this exciting journey toward a healthier future.",
         imgUrl:
           "https://images.unsplash.com/photo-1516826435551-36a8a09e4526?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       },
@@ -95,13 +95,13 @@ export default {
       name: "John Smith",
       jobTitle: "Marketing Manager",
       description:
-        "Vitaem's vitamins have been a game-changer for my overall health!",
+        "Vitafloe's vitamins have been a game-changer for my overall health!",
     },
     {
       name: "Emily White",
       jobTitle: "Teacher",
       description:
-        "As an educator, I need all the energy I can get. Vitaem delivers!",
+        "As an educator, I need all the energy I can get. Vitafloe delivers!",
     },
     {
       name: "David Rodriguez",
@@ -113,7 +113,7 @@ export default {
       name: "Sophie Brown",
       jobTitle: "Fitness Trainer",
       description:
-        "Vitaem fuels my workouts and keeps me at my peak performance.",
+        "Vitafloe fuels my workouts and keeps me at my peak performance.",
     },
     {
       name: "Michael Taylor",
@@ -130,13 +130,13 @@ export default {
     {
       name: "Alexandra Lee",
       jobTitle: "Event Planner",
-      description: "Vitaem has become my secret weapon for managing stress.",
+      description: "Vitafloe has become my secret weapon for managing stress.",
     },
     {
       name: "Daniel Kim",
       jobTitle: "Doctor",
       description:
-        "As a healthcare professional, I trust Vitaem for my daily nutrition.",
+        "As a healthcare professional, I trust Vitafloe for my daily nutrition.",
     },
     {
       name: "Olivia Martinez",
@@ -147,7 +147,7 @@ export default {
       name: "William Turner",
       jobTitle: "Real Estate Agent",
       description:
-        "Vitaem is an essential part of my busy lifestyle, keeping me energized.",
+        "Vitafloe is an essential part of my busy lifestyle, keeping me energized.",
     },
     {
       name: "Eva Carter",
@@ -159,7 +159,7 @@ export default {
       name: "Chris Baker",
       jobTitle: "Engineer",
       description:
-        "Vitaem's vitamins are my daily source of vitality and balance.",
+        "Vitafloe's vitamins are my daily source of vitality and balance.",
     },
     {
       name: "Lily Nguyen",
@@ -171,7 +171,7 @@ export default {
       name: "Aaron Mitchell",
       jobTitle: "Chef",
       description:
-        "Balanced nutrition is crucial in my profession. Vitaem delivers on every front!",
+        "Balanced nutrition is crucial in my profession. Vitafloe delivers on every front!",
     },
     {
       name: "Mia Johnson",
@@ -183,7 +183,7 @@ export default {
       name: "Robert Hayes",
       jobTitle: "Financial Analyst",
       description:
-        "Vitaem is a smart investment in my overall health and well-being.",
+        "Vitafloe is a smart investment in my overall health and well-being.",
     },
     {
       name: "Grace Williams",
@@ -195,26 +195,26 @@ export default {
       name: "Jason Turner",
       jobTitle: "Pilot",
       description:
-        "Vitaem ensures I stay sharp and alert during long flights. Excellent product!",
+        "Vitafloe ensures I stay sharp and alert during long flights. Excellent product!",
     },
     {
       name: "Ava Nelson",
       jobTitle: "Social Media Manager",
       description:
-        "Fueling my productivity and creativity – Vitaem is a social media game-changer!",
+        "Fueling my productivity and creativity – Vitafloe is a social media game-changer!",
     },
     {
       name: "Jordan Baker",
       jobTitle: "Personal Trainer",
       description:
-        "My clients and I swear by Vitaem for maintaining peak fitness levels. Simply the best!",
+        "My clients and I swear by Vitafloe for maintaining peak fitness levels. Simply the best!",
     },
   ],
   advert: {
     pros: [
       "get to pre-order up to 10 000 units",
       "receive the most important updates on our products",
-      "improve your overall health by taking Vitaem",
+      "improve your overall health by taking Vitafloe",
       "acquire vitamins of the highest quality",
     ],
   },

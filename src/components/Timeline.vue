@@ -6,7 +6,7 @@ const timelineObjects = data?.timeline?.objects;
 <template>
   <section id="timeline" class="timeline-section">
     <h2 class="section-title">
-      <span class="extra">Journey</span> with Vitaem
+      <span class="extra">Journey</span> with Vitafloe
     </h2>
     <div class="timeline-container">
       <div class="line">

@@ -7,7 +7,7 @@ const socials = data?.socials;
 <template>
   <footer class="footer">
     <div class="title-container">
-      <h2>vitaem</h2>
+      <h2>vitafloe</h2>
       <div class="btn-container">
         <Button button-size="lg" @click="$router.push('#join')">Join</Button>
         <div class="socials">
@@ -26,7 +26,7 @@ const socials = data?.socials;
         content?.title
       }}</RouterLink>
     </div>
-    <p class="c">©2023-2024 vitaem, Inc. All rights reserved.</p>
+    <p class="c">©2023-2024 vitafloe, Inc. All rights reserved.</p>
   </footer>
 </template>
 <style lang="scss" scoped>

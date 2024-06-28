@@ -22,9 +22,10 @@ defineProps<{ cardInfo: MainCardInfo }>();
 .main-card-container {
   position: relative;
   width: 80%;
-  max-width: 500px;
+  max-width: 20rem;
   height: 70vh;
   height: 70svh;
+  max-height: 30rem;
   background: vars.$background;
   padding: vars.$padding-sm;
   border-radius: vars.$border-radius-lg;

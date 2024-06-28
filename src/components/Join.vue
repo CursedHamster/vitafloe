@@ -78,7 +78,7 @@ function submitForm() {
 
           <p class="secondary">
             * By subscribing, you agree to receive occasional promotional emails
-            from Vitaem, including updates on new product launches, exclusive
+            from Vitafloe, including updates on new product launches, exclusive
             offers, and wellness insights. Rest assured, we prioritize the
             security of your information and adhere to our privacy policy. You
             can unsubscribe at any time by clicking the link in the email

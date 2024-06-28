@@ -17,7 +17,7 @@ const cards = data?.main?.cards;
       </h2>
       <p>
         Elevate your health journey with our exclusive range of vitamins. At
-        Vitaem, we're committed to pioneering cutting-edge formulations that
+        Vitafloe, we're committed to pioneering cutting-edge formulations that
         prioritize your well-being.
       </p>
     </div>

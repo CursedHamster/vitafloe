@@ -156,7 +156,7 @@ onUnmounted(() => {
 <template>
   <header class="header" :class="{ 'full-size': !menuBurger }">
     <div class="menu">
-      <RouterLink to="/#home" class="logo">vitaem</RouterLink>
+      <RouterLink to="/#home" class="logo">vitafloe</RouterLink>
       <button class="btn-icon clickable" @click="openMenu = !openMenu">
         <svg
           xmlns="http://www.w3.org/2000/svg"

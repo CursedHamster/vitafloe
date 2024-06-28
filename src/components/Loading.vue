@@ -7,7 +7,7 @@ const emit = defineEmits(["setShowLoading"]);
 
 let progress = ref(0);
 
-const animatedText = "VITAEM".split("");
+const animatedText = "VITAFLOE".split("");
 const tlDuration = 2;
 const progressTimeline: GSAPTimeline = gsap.timeline();
 const letterTimeline = gsap.timeline({

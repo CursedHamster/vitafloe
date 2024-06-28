@@ -67,10 +67,10 @@ function addHeroAnimation(object: any) {
       ".hero-text-animation .extra",
       {},
       {
-        y: -20,
-        rotateZ: -5,
+        yPercent: -50,
+        // rotateZ: -5,
         duration: 0.2,
-        stagger: 0.05,
+        // stagger: 0.05,
       }
     )
     .fromTo("#pill_container", {}, { autoAlpha: 0.2 }, 0)
