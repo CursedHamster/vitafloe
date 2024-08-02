@@ -76,7 +76,7 @@ onUnmounted(() => {
 <template>
   <section id="home" class="hero-container">
     <h1 class="text hero-text-animation">
-      Vitamins Reasearch Center open for
+      Vitamins Research Center open for
       <span class="extra">sponsorship</span> and
       <span class="extra">pre-orders</span>
     </h1>
